@@ -14,10 +14,10 @@ Note: The tool is intended to be used on the local development machine that's no
 * Download / Clone the repo in a folder that's accessible from within your browser 
 e.g. htdocs/release-manager/
 
-* Create conf/config.custom.php using the conf/config.custom.sample.php and define your WordPress.org credentials and which folders to be scanned for plugins.
+* Create conf/config.custom.php using the conf/sample.config.custom.php and define your WordPress.org credentials and which folders to be scanned.
 
 * Access it 
-You need to define some the folders where your 
+Your plugins should be listed here.
 http://localhost/release-manager/
 
 
