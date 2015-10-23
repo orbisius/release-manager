@@ -28,6 +28,10 @@ https://github.com/orbisius/release-manager/issues
 
 Also you can clone the repo and do a pull request.
 
+= Todo =
+- Show plugins in the sidebar for quick access
+- Collapse all and open when needed?
+
 = Author =
 
 Svetoslav (Slavi) Marinov is an entrepreneur / developer who likes creating cool and useful tools.
