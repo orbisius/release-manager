@@ -3,10 +3,9 @@
 /**
  * This file helps me release WordPress plugins easily.
  */
-
 require_once dirname(__FILE__) . '/header.php';
 
-$plugin_dirs = file(dirname(__FILE__) . '/data/plugin_dirs.txt');
+$plugin_dirs = file_exists( APP_SCAN_DIRS_FILE ) ? file( APP_SCAN_DIRS_FILE ) : array();
 
 foreach ($plugin_dirs as $plugin_dir) {
     $plugin_dir = trim($plugin_dir);

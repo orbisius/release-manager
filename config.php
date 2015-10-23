@@ -4,9 +4,10 @@ define( 'APP_BASE_DIR', dirname( __FILE__ ) );
 
 define( 'APP_NL', "<br/>\n" );
 define( 'APP_LATEST_WP', rel_mng_get_latest_wp_version() );// load it dyn
+define( 'APP_SCAN_DIRS_FILE', dirname(__FILE__) . '/conf/scan_dirs.txt' );
 
-if ( file_exists( APP_BASE_DIR . 'config.custom.php' ) ) {
-	require_once APP_BASE_DIR . 'config.custom.php';
+if ( file_exists( APP_BASE_DIR . '/conf/config.custom.php' ) ) {
+	require_once APP_BASE_DIR . '/conf/config.custom.php';
 }
 
 require_once dirname( __FILE__ ) . '/includes/file.php';
