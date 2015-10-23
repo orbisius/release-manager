@@ -1,0 +1,19 @@
+
+Links to public and admin site.
+
+
+Todo
+	links are clickable
+	edit versions via text+ajax
+	see diff/
+	commit uncommitted changes
+	use ini file
+	release to github
+	add help videos
+	sidebar
+		list all plugins in the sidebar + click to navigate.
+		info which are up-to-date and tested with latest WP.
+		deploy??
+	wp-cli stuff?
+	create an editor to edit the readme file
+

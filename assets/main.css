@@ -1,0 +1,30 @@
+
+.ok {
+    color:green;
+}
+
+.warn {
+    color:red;
+}
+
+.notice {
+    color:#bebebe;
+}
+
+.plugin_container {
+    margin:15px 0;
+    border:2px solid brown;
+    padding: 5px;
+}
+
+.release_container {
+    background: #ccc;
+}
+
+.full_width {
+	width: 100%;
+}
+
+.pro_plugin_container {
+    background:#52ACCC;color: white;
+}
