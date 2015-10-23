@@ -4,10 +4,17 @@ define( 'APP_BASE_DIR', dirname( __FILE__ ) );
 
 define( 'APP_NL', "<br/>\n" );
 define( 'APP_LATEST_WP', rel_mng_get_latest_wp_version() );// load it dyn
-define( 'APP_SCAN_DIRS_FILE', dirname(__FILE__) . '/conf/scan_dirs.txt' );
 
 if ( file_exists( APP_BASE_DIR . '/conf/config.custom.php' ) ) {
 	require_once APP_BASE_DIR . '/conf/config.custom.php';
+}
+
+if ( ! defined( 'APP_SVN_USER' ) ) {
+    define( 'APP_SVN_USER', "THIS-IS-SUPPOSED-TO-BE-YOUR-WP-USER" );
+}
+
+if ( ! defined( 'APP_SVN_PASS' ) ) {
+    define( 'APP_SVN_PASS', "THIS-IS-SUPPOSED-TO-BE-YOUR-WP-PASS" );
 }
 
 require_once dirname( __FILE__ ) . '/includes/file.php';

@@ -6,21 +6,19 @@ The tool simplifies the job of the WordPress developer by allowing him/her to re
 The tools will tell you if a plugin needs to be tested with the latest WordPress version (by checkin the readme file)
 Also if there are any uncommited changes.
 It also checks if you have a change log for a given version and much more.
+When all conditions are met the Push Release button will appear.
 
-Note: It is intended to be used on the local development machine that's not accessible from the internet.
+Note: The tool is intended to be used on the local development machine that's not accessible from the internet.
 
 = Configuration =
 * Download / Clone the repo in a folder that's accessible from within your browser 
 e.g. htdocs/release-manager/
 
-* Create conf/config.custom.php using the conf/config.custom.sample.php and define your WordPress.org credentials.
-* Create conf/scan_dirs.txt using conf/scan_dirs.sample.txt to define which folders to be scanned for plugins
+* Create conf/config.custom.php using the conf/config.custom.sample.php and define your WordPress.org credentials and which folders to be scanned for plugins.
 
 * Access it 
 You need to define some the folders where your 
 http://localhost/release-manager/
-
-
 
 
 = How to Contribute =

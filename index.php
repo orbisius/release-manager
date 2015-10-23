@@ -3,9 +3,17 @@
 /**
  * This file helps me release WordPress plugins easily.
  */
-require_once dirname(__FILE__) . '/header.php';
+require_once dirname( __FILE__ ) . '/header.php';
 
-$plugin_dirs = file_exists( APP_SCAN_DIRS_FILE ) ? file( APP_SCAN_DIRS_FILE ) : array();
+$plugin_dirs = array();
+
+if ( defined( 'APP_SCAN_DIRS' ) ) {
+    $plugin_dirs = preg_split( '#[\|\r\n]+#si', trim( APP_SCAN_DIRS ) );
+    $plugin_dirs = array_map( 'trim', $plugin_dirs );
+    $plugin_dirs = array_unique( $plugin_dirs );
+    $plugin_dirs = array_filter( $plugin_dirs );
+    sort( $plugin_dirs );
+}
 
 foreach ($plugin_dirs as $plugin_dir) {
     $plugin_dir = trim($plugin_dir);
