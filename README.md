@@ -31,6 +31,9 @@ Also you can clone the repo and do a pull request.
 = Todo =
 - Show plugins in the sidebar for quick access
 - Collapse all and open when needed?
+- Add buttons in the WP's Theme listing page near Customize
+	- Orbisius Create
+	- Orbisius Edit
 
 = Author =
 
