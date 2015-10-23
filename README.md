@@ -4,7 +4,7 @@ Orbisius Release Manager allows WordPress developers/designers to easily release
 = What this tool does =
 The tool simplifies the job of the WordPress developer by allowing him/her to release a version using a single click.
 The tools will tell you if a plugin needs to be tested with the latest WordPress version (by checkin the readme file)
-Also if there are any uncommited changes.
+Also it warns you if there are any uncommited changes, the stable tag doesn't match the current version etc.
 It also checks if you have a change log for a given version and much more.
 When all conditions are met the Push Release button will appear.
 
