@@ -91,7 +91,7 @@ foreach ($plugin_dirs as $plugin_dir) {
             $tested_ver = empty( $data['Tested up to'] ) ? '0.0.0' : $data['Tested up to'];
 
             if ( strlen( $tested_ver ) != strlen( APP_LATEST_WP ) ) { // pad
-                $tested_ver .= '.0';
+                $tested_ver .= '.9';
             }
 
             if (version_compare($tested_ver, APP_LATEST_WP, '>=')) {
