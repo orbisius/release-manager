@@ -147,7 +147,7 @@ foreach ($plugin_dirs as $plugin_dir) {
 
         echo "<div class='release_container'>\n";
         
-        if ( is_dir( $plugin_root_dir . '/.git' ) ) {
+        if ( is_dir( $plugin_root_dir . '/.git' ) && ! is_dir( $plugin_root_dir . '/.svn' ) ) {
             $wp_res = App_Release_Manager_WP_Lib::parse( $main_plugin_file );
             $warn = '';
             
