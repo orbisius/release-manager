@@ -32,7 +32,7 @@
       </div>
 
       <div class="row marketing">
-        <div class="col-lg-9">
+        <div class="col-lg-8">
 		
 			<?php
 				echo '<input class="full_width" type="text" value="' . dirname(__FILE__) .'" onclick="this.select();" />' . APP_NL;

@@ -26,6 +26,7 @@ foreach ($plugin_dirs as $plugin_dir) {
     
     echo "<h4>Processing: [$plugin_dir]</h4>";
     $plugins = glob($plugin_dir . '*', GLOB_ONLYDIR);
+    $plugin_info_rec = array();
 
     foreach ($plugins as $plugin_root_dir) {
         // skipping plugins that are not tracked by a version control.
@@ -53,6 +54,7 @@ foreach ($plugin_dirs as $plugin_dir) {
 
         if (!empty($data['Plugin Name'])) {
             $ver = $data['Version'];
+            $parsed_plugin_info = $data;
             
             foreach ($data as $k => $v) {
                 if (is_array($v)) {
@@ -129,6 +131,8 @@ foreach ($plugin_dirs as $plugin_dir) {
             } else {
                 $ok++;
             }
+
+            $plugin_info_rec[$data['Plugin Name']] = $ver . ' tested with WP ' . $tested_ver;
         } else {
             echo "Plugin info couldn't be parsed." . APP_NL;
         }
