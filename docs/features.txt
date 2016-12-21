@@ -3,6 +3,7 @@ Links to public and admin site.
 
 
 Todo
+	read from plugin's readme file to guess the product link in the update.json (pro)
 	links are clickable
 	edit versions via text+ajax
 	see diff/
