@@ -69,6 +69,8 @@ foreach ($plugin_dirs as $plugin_dir) {
                     $v .= " Manage: <a href='$manage_site_pub' target='_blank'>Site</a>\n";
                     $v .= "| <a href='$manage_site_adm' target='_blank'>Admin</a>\n";
                     $v .= '<br/><input class="full_width" type="text" value="' . $plugin_root_dir .'" onclick="this.select();" />';
+//                    $v .= "<br/><a href='file://///c:/' title='If configured, firefox, can open local dirs.'>Open dir</a>";
+//                    $v .= "<br/><a href='file://$plugin_root_dir' title='If configured, firefox, can open local dirs.'>Open dir</a>";
                 }
 
                 if ($v == 'n/a') {
@@ -108,8 +110,10 @@ foreach ($plugin_dirs as $plugin_dir) {
             $readme_file = $plugin_root_dir . 'readme.txt';
 
             if (is_file($readme_file)) {
+                $readme_hash = sha1_file($readme_file);
                 $readme_buff = file_get_contents($readme_file);
                 $ver_quoted = preg_quote($ver);
+                
                 // the version is = 1.0.1 =
                 if (preg_match('#[\s=]+' . $ver_quoted . '[\s=]+#si', $readme_buff)) {
                     echo App_Release_Manager_String::msg("Readme file has a change log entry for the current version." . APP_NL, 1);
