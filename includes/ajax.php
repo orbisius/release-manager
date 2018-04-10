@@ -25,7 +25,9 @@ class App_Release_Manager_Ajax {
             header('Content-Type: ' . ($callback ? 'application/javascript' : 'application/json') . ';charset=UTF-8');
         }
 
-        $json_buff = version_compare(phpversion(), '5.4.0', '>=') ? json_encode($struct, JSON_PRETTY_PRINT) : json_encode($struct);
+        $json_buff = version_compare(phpversion(), '5.4.0', '>=')
+	        ? json_encode($struct, JSON_PRETTY_PRINT)
+	        : json_encode($struct);
 
         echo ($callback ? $callback . '(' : '') . $json_buff . ($callback ? ')' : '');
 

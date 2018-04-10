@@ -25,8 +25,10 @@ foreach ($plugin_dirs as $plugin_dir) {
     }
     
     echo "<h4>Processing: [$plugin_dir]</h4>";
+	$plugin_dir = str_replace('\\', '/', $plugin_dir);
     $plugins = glob($plugin_dir . '*', GLOB_ONLYDIR);
     $plugin_info_rec = array();
+    echo sprintf("<div>Found: %d item(s)</div>", count($plugins));
 
     foreach ($plugins as $plugin_root_dir) {
         // skipping plugins that are not tracked by a version control.

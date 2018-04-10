@@ -70,6 +70,10 @@ class App_Release_Manager_WP_Lib {
         $rec['target_release_dir'] = $target_release_dir;
         $rec['target_release_file'] = $target_release_file;
 
+	    $rec['target_release_dir_windows'] = $target_release_dir;
+	    $rec['target_release_dir_windows'] = str_replace('/', '\\', $rec['target_release_dir_windows']);
+	    $rec['target_release_dir_windows'] = str_replace('\\', "\\", $rec['target_release_dir_windows']);
+
         return $rec;
     }
 }

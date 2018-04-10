@@ -58,7 +58,7 @@ try {
 
             $struct['result'] .= "<pre>";
             $struct['result'] .= var_export($wp_res, 1);
-            $struct['result'] .= var_export($zip_res, 1);
+//            $struct['result'] .= var_export($zip_res, 1);
             $struct['result'] .= "</pre>";
 
             break;
@@ -79,10 +79,15 @@ try {
 
             chdir($plugin_dir);
 
-            $info = `svn info`;
+            $info = `svn info 2>&1`;
             $data = App_Release_Manager_File::parsePluginMeta('', $info);
 
-            $trunk_url = $data['URL'];
+            $trunk_url = empty( $data['URL'] ) ? '' : $data['URL'];
+            
+            if ( empty( $trunk_url ) ) {
+                throw new Exception("Cannot detect trunk URL for $plugin_dir. [$info]");
+            }
+            
             $trunk_url = rtrim($trunk_url, '/') . '/';
             $tags_url = str_replace('trunk', 'tags', $trunk_url);
             $new_tag_url = $tags_url . $ver;
