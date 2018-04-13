@@ -57,7 +57,13 @@ try {
             }
 
             $struct['result'] .= "<pre>";
-            $struct['result'] .= var_export($wp_res, 1);
+
+	        $rel_dir_linux = $wp_res['target_release_dir'];
+	        $struct['result'] .= "\nRelease dir (linux): <input type='text' value='$rel_dir_linux' class='full_width' onclick='this.select();' />\n";
+	        $rel_dir_win = $wp_res['target_release_dir_windows'];
+	        $struct['result'] .= "\nRelease dir (win): <input type='text' value='$rel_dir_win' class='full_width' onclick='this.select();' />\n";
+
+	        $struct['result'] .= var_export($wp_res, 1);
 //            $struct['result'] .= var_export($zip_res, 1);
             $struct['result'] .= "</pre>";
 
@@ -117,6 +123,12 @@ try {
             } else {
                 $struct['result'] .= App_Release_Manager_String::msg('Pushed new version successfully.', 1);
             }
+
+//            $rel_dir_linux = $data['target_release_dir'];
+//            $struct['result'] .= "Release dir (linux): <input type='text' value='$rel_dir_linux' />";
+//
+//            $rel_dir_win = $data['target_release_dir_windows'];
+//            $struct['result'] .= "Release dir (win): <input type='text' value='$rel_dir_win' />";
 
             $struct['result'] .= var_export($data, 1);
 

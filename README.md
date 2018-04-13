@@ -7,6 +7,7 @@ The tools will tell you if a plugin needs to be tested with the latest WordPress
 Also it warns you if there are any uncommited changes, the stable tag doesn't match the current version etc.
 It also checks if you have a change log for a given version and much more.
 When all conditions are met the Push Release button will appear.
+Shows the release dir in a nice textbox for easy copy/paste.
 
 Note: The tool is intended to be used on the local development machine that's not accessible from the internet.
 
