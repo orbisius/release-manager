@@ -44,10 +44,10 @@ try {
                 "author" => "<a href='http://orbisius.com' target='_blank'>Orbisius.com</a>",
                 "author_profile" => "http://profiles.wordpress.org/lordspace/",
                 "downloaded" => 'n/a',
-                "homepage" => "http://club.orbisius.com/products/wordpress-plugins/{$wp_res['plugin_id']}/",
+                "homepage" => "http://orbisius.com/products/wordpress-plugins/{$wp_res['plugin_id']}/",
                 "requires" => "3.0",
                 "tested" => $wp_res['tested_with_wp_version'],
-                "url" => "http://club.orbisius.com/products/wordpress-plugins/{$wp_res['plugin_id']}/"
+                "url" => "http://orbisius.com/products/wordpress-plugins/{$wp_res['plugin_id']}/"
             );
 
             file_put_contents( $wp_res['target_release_dir'] . '/update.json', json_encode( $update_rec, JSON_PRETTY_PRINT ) );
