@@ -31,6 +31,7 @@ class App_Release_Manager_File {
             '-x ' . escapeshellarg('*.gitignore*'),
             '-x ' . escapeshellarg('*nbproject*'),
             '-x ' . escapeshellarg('*project*'),
+            '-x ' . escapeshellarg('.idea'),
             '-x ' . escapeshellarg('*/.ht_sandbox_data/*'),
             '-x ' . escapeshellarg('*/mu-plugins/*'),
         );
