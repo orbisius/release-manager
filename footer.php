@@ -17,7 +17,7 @@
     </div> <!-- /container -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     
     <script src="share/js/jquery-2.1.1.min.js"></script>
     <script src="assets/main.js"></script>
