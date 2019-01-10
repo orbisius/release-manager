@@ -1,5 +1,6 @@
         </div>
 
+        <?php if (0) : ?>
         <div class="col-lg-4">
           <h4>Plugins</h4>
           <p>
@@ -8,6 +9,7 @@
               <?php endforeach; ?>
           </p>
         </div>
+        <?php endif; ?>
       </div>
 
       <footer class="footer">
