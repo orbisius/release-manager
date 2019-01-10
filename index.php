@@ -147,7 +147,7 @@ foreach ($plugin_dirs as $plugin_dir) {
 
         // 1.0.1
         if (!empty($stored_ver) && version_compare($ver, $stored_ver, '<=')) {
-            echo App_Release_Manager_String::msg("The plugin has already been tagged with this verison [$ver] "
+            echo App_Release_Manager_String::msg("The plugin has already been tagged with this version [$ver] "
                     . "or the version is smaller than current one." . APP_NL, 1);
             $ok -= 2;
         }
