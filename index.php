@@ -94,6 +94,16 @@ foreach ($plugin_dirs as $plugin_dir) {
                 echo App_Release_Manager_String::msg("Plugin's version doesn't match stable tag." . APP_NL, 0);
             }
 
+            $req_php = empty( $data['Requires PHP'] ) ? '' : $data['Requires PHP'];
+
+            if (!empty($req_php)) {
+                echo App_Release_Manager_String::msg("Has Requires PHP: $req_php" . APP_NL, 1);
+                $ok++;
+            } else {
+                echo App_Release_Manager_String::msg("Missing Requires PHP: " . APP_NL, 0);
+                $ok--;
+            }
+
             $tested_ver = empty( $data['Tested up to'] ) ? '0.0.0' : $data['Tested up to'];
 
             if ( strlen( $tested_ver ) != strlen( APP_LATEST_WP ) ) { // pad
