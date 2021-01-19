@@ -50,7 +50,8 @@ try {
                 "url" => "https://orbisius.com/products/wordpress-plugins/{$wp_res['plugin_id']}/"
             );
 
-            file_put_contents( $wp_res['target_release_dir'] . '/update.json', json_encode( $update_rec, JSON_PRETTY_PRINT ) );
+            $upd_file = $wp_res['target_release_dir'] . '/update.json';
+            file_put_contents( $upd_file, json_encode( $update_rec, JSON_PRETTY_PRINT ) );
 
             if ( ! empty( $wp_res['change_log'] )) { // 1 level up is the change log
                 file_put_contents( dirname( $wp_res['target_release_dir'] ) . '/changelog.txt', $wp_res['change_log'] );
@@ -67,7 +68,28 @@ try {
 //            $struct['result'] .= var_export($zip_res, 1);
             $struct['result'] .= "</pre>";
 
-            break;
+            // Let's add to git the new files to git
+            $files = [
+	            $upd_file,
+	            $target_zip_file,
+            ];
+
+	        $cur_dir = getcwd();
+	        chdir($plugin_dir);
+
+	        foreach ($files as $file) {
+	        	$file_esc = escapeshellarg($file);
+	        	$git_add_cmd = "git add $file_esc";
+	        	$last_line = exec($git_add_cmd, $output_arr, $exit_code);
+
+	        	if (!empty($exit_code)) {
+			        $struct['result'] .= "Error: couldn't git add: [$file_esc]." . htmlentities(join('', $output_arr));
+		        }
+	        }
+
+	        chdir($cur_dir);
+
+	        break;
 
         case 'release_free_plugin':
             $stored_ver = App_Release_Manager_Release::getRelease($plugin_dir);
