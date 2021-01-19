@@ -41,13 +41,13 @@ try {
             $zip_res = App_Release_Manager_File::archive( $target_zip_file, $plugin_dir );
 
             $update_rec = array(
-                "author" => "<a href='http://orbisius.com' target='_blank'>Orbisius.com</a>",
-                "author_profile" => "http://profiles.wordpress.org/lordspace/",
+                "author" => "<a href='https://orbisius.com' target='_blank'>Orbisius.com</a>",
+                "author_profile" => "https://profiles.wordpress.org/lordspace/",
                 "downloaded" => 'n/a',
-                "homepage" => "http://orbisius.com/products/wordpress-plugins/{$wp_res['plugin_id']}/",
+                "homepage" => "https://orbisius.com/products/wordpress-plugins/{$wp_res['plugin_id']}/",
                 "requires" => "3.0",
                 "tested" => $wp_res['tested_with_wp_version'],
-                "url" => "http://orbisius.com/products/wordpress-plugins/{$wp_res['plugin_id']}/"
+                "url" => "https://orbisius.com/products/wordpress-plugins/{$wp_res['plugin_id']}/"
             );
 
             file_put_contents( $wp_res['target_release_dir'] . '/update.json', json_encode( $update_rec, JSON_PRETTY_PRINT ) );
