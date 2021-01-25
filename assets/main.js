@@ -1,3 +1,22 @@
+var orbisius_release_manager_app = {
+    loading_text: '---- &#9200; -----',
+    util: {
+        // the api result from API on dev machine may not return an obj due to xdebug headers.
+        ensure_json: function (json) {
+            if (typeof json == 'string') {
+                try {
+                    json_obj = JSON.parse(json);
+                    json = json_obj;
+                } catch (e) {
+                    console.log('ensure_json. error: ' + e);
+                }
+            }
+
+            return json;
+        },
+    }
+};
+
 jQuery(document).ready(function ($) {
     $('.push_release').on('click', function () {
         var plugin_id = $(this).data('id');
@@ -15,6 +34,7 @@ jQuery(document).ready(function ($) {
         $(container_id).empty().html('Loading ...');
 
         $.post("ajax.php", params, function (json) {
+            json = orbisius_release_manager_app.util.ensure_json(json);
             $(container_id).html(json.result);
         });
     });
@@ -36,6 +56,7 @@ jQuery(document).ready(function ($) {
         $(container_id).empty().html('Loading ...');
 
         $.post("ajax.php", params, function (json) {
+            json = orbisius_release_manager_app.util.ensure_json(json);
             $(container_id).html(json.result);
         });
     });

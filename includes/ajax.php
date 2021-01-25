@@ -21,8 +21,15 @@ class App_Release_Manager_Ajax {
         $callback = isset($_REQUEST['callback']) ? preg_replace('/[^a-z0-9$_]/si', '', $_REQUEST['callback']) : false;
 
         if ($send_header && !headers_sent()) {
-            header('Access-Control-Allow-Origin: *');
-            header('Content-Type: ' . ($callback ? 'application/javascript' : 'application/json') . ';charset=UTF-8');
+	        header('Access-Control-Allow-Origin: *'); // safe? smart? to allow access from anywhere?
+	        header('Access-Control-Allow-Methods: GET, POST, OPTION');
+	        header("Access-Control-Allow-Headers: X-Requested-With");
+
+	        if (APP_LIVE_ENV) { // debugger doesn't start when it's app/js content type
+		        header( 'Content-Type: ' . ( $callback ? 'application/javascript' : 'application/json' ) . ';charset=UTF-8' );
+	        } else {
+		        header( 'Content-Type: ' . ( $callback ? 'application/json' : 'application/json' ) . ';charset=UTF-8' );
+	        }
         }
 
         $json_buff = version_compare(phpversion(), '5.4.0', '>=')

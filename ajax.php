@@ -24,7 +24,6 @@ try {
     switch ($cmd) {
         case 'package_pro_plugin':
             $main_plugin_file = App_Release_Manager_File::findMainPluginFile($plugin_dir);
-
             $wp_res = App_Release_Manager_WP_Lib::parse( $main_plugin_file );
 
             if ( ! is_dir( $wp_res[ 'target_release_dir' ] ) ) {
@@ -75,10 +74,10 @@ try {
             ];
 
 	        $cur_dir = getcwd();
-	        chdir($plugin_dir);
 
 	        foreach ($files as $file) {
-	        	$file_esc = escapeshellarg($file);
+		        chdir(dirname($file));
+		        $file_esc = escapeshellarg(basename($file));
 	        	$git_add_cmd = "git add $file_esc";
 	        	$last_line = exec($git_add_cmd, $output_arr, $exit_code);
 
