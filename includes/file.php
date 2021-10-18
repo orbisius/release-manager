@@ -29,6 +29,7 @@ class App_Release_Manager_File {
             '-x ' . escapeshellarg('*.zip*'),
             '-x ' . escapeshellarg('*screenshot-*'),
             '-x ' . escapeshellarg('*.gitignore*'),
+            '-x ' . escapeshellarg('*.release_manager_ignore*'),
             '-x ' . escapeshellarg('*nbproject*'),
             '-x ' . escapeshellarg('*project*'),
             '-x ' . escapeshellarg('*.idea/*'),
