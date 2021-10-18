@@ -7,13 +7,14 @@ class App_Release_Manager_File {
     /**
      * Creates the zip file which contains the fresh site folder (without htdocs or wordpress folder).
      * The default latest.zip file contains wordpress in it.
+     * @todo read the release_manager_ignore file and skip files and dirs.
      * App_Release_Manager_File::archive();
      * @param str $target_archive_file
      * @param str $path
      * @return string
      * @see http://askubuntu.com/questions/28476/how-do-i-zip-up-a-folder-but-exclude-the-git-subfolder
      */
-    public static function archive($target_archive_file, $path) {
+    public static function archive($target_archive_file, $path, $extra_params = []) {
         $current_dir = getcwd();
         chdir(dirname($path));
         $folder2zip = basename($path);
