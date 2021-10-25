@@ -39,11 +39,28 @@ try {
 				'exclude' => [],
 	        ];
 
+	        $buff = '';
+	        $git_ignore = "$plugin_dir/.gitignore";
+
+			// We'll exclude some files and directories from the pkg for various reasons
+            // not necessary or for production.
+	        // @todo skip non-minified versions of the assets.
+			// check what's in git ignore
+			if (file_exists($git_ignore)) {
+				$buff .= file_get_contents($git_ignore);
+				$buff .= "\n";
+			}
+
 	        $rl_ignore = "$plugin_dir/.release_manager_ignore";
 
-			if (file_exists($rl_ignore)) {
-				$buff = file_get_contents($rl_ignore);
-				$buff = trim($buff);
+	        if (file_exists($rl_ignore)) {
+				$buff .= file_get_contents($rl_ignore);
+				$buff .= "\n";
+			}
+
+	        $buff = trim($buff);
+
+	        if (!empty($buff)) {
 				$lines = preg_split('#[\r\n]+#si', $buff);
 				$lines = array_map('trim', $lines);
 				$lines = array_filter($lines);
