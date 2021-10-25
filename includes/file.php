@@ -38,6 +38,13 @@ class App_Release_Manager_File {
             '-x ' . escapeshellarg('*/mu-plugins/*'),
         );
 
+		if (!empty($extra_params['exclude'])) {
+			$exclude = (array) $extra_params['exclude'];
+			foreach ($exclude as $exc) {
+				$options_extra[] = '-x ' . escapeshellarg($exc);
+			}
+		}
+
         $options_extra_str = join(' ', $options_extra);
 
         // -q -> quiet

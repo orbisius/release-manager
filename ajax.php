@@ -35,9 +35,43 @@ try {
                 break;
             }
 
+	        $extra_cool_params = [
+				'exclude' => [],
+	        ];
+
+	        $rl_ignore = "$plugin_dir/.release_manager_ignore";
+
+			if (file_exists($rl_ignore)) {
+				$buff = file_get_contents($rl_ignore);
+				$buff = trim($buff);
+				$lines = preg_split('#[\r\n]+#si', $buff);
+				$lines = array_map('trim', $lines);
+				$lines = array_filter($lines);
+				$lines = array_unique($lines);
+
+				// Let's see what to ignore;
+				// files: *.gitignore*
+				// dirs: */mu-plugins/*
+				// '-x ' . escapeshellarg('*.idea/*'),
+				foreach ($lines as $item) {
+					$exclude = '';
+					$item_fmt = $item;
+					$item_fmt = trim($item_fmt, '/');
+					$period_pos = strpos(basename($item_fmt), '.'); // must be a file
+
+					if ($period_pos !== false) {
+						$exclude = '*' . $item_fmt . '*';
+					} else {
+						$exclude = '*/' . $item_fmt . '/*';
+					}
+
+					$extra_cool_params['exclude'][] = $exclude;
+				}
+			}
+
             $target_zip_file = $wp_res['target_release_file'];
             $plugin_dir = $wp_res['plugin_dir'];
-            $zip_res = App_Release_Manager_File::archive( $target_zip_file, $plugin_dir );
+            $zip_res = App_Release_Manager_File::archive( $target_zip_file, $plugin_dir, $extra_cool_params );
 
             $update_rec = array(
                 "author" => "<a href='https://orbisius.com' target='_blank'>Orbisius.com</a>",
