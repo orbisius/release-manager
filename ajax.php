@@ -50,7 +50,7 @@ try {
 				$lines = array_unique($lines);
 
 				// Let's see what to ignore;
-				// files: *.gitignore*
+				// files: */some-file.txt
 				// dirs: */mu-plugins/*
 				// '-x ' . escapeshellarg('*.idea/*'),
 				foreach ($lines as $item) {
@@ -60,7 +60,7 @@ try {
 					$period_pos = strpos(basename($item_fmt), '.'); // must be a file
 
 					if ($period_pos !== false) {
-						$exclude = '*' . $item_fmt . '*';
+						$exclude = '*/' . $item_fmt;
 					} else {
 						$exclude = '*/' . $item_fmt . '/*';
 					}
