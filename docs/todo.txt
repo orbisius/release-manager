@@ -1,0 +1,9 @@
+Todo
+=======
+
+on release -> commit and push
+
+update the UI rendering so it's quick scan and JS hook on document(element).on('click') and not when the page is fully
+rendered.
+or maybe expand only on click and not by default for a quick scan
+
