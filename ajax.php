@@ -137,6 +137,16 @@ try {
 		        }
 	        }
 
+			// @todo commit and push
+	        if (0 && empty($exit_code)) {
+		        $git_add_cmd = "git commit -m" . escapeshellarg("Pushed a release for " . $wp_res['plugin_id'] . ' on ' . date('r'));
+		        $last_line = exec($git_add_cmd, $output_arr, $exit_code);
+
+		        if (!empty($exit_code)) {
+			        $struct['result'] .= "Error: couldn't git commit: [$file_esc]." . htmlentities(join('', $output_arr));
+		        }
+	        }
+			
 	        chdir($cur_dir);
 
 	        break;
