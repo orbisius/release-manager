@@ -124,29 +124,46 @@ try {
 	            $target_zip_file,
             ];
 
-	        $cur_dir = getcwd();
+	        $cur_dir = getcwd(); // get it so we can go back jic
+	        $exit_code = 0;
 
 	        foreach ($files as $file) {
 		        chdir(dirname($file));
 		        $file_esc = escapeshellarg(basename($file));
-	        	$git_add_cmd = "git add $file_esc";
-	        	$last_line = exec($git_add_cmd, $output_arr, $exit_code);
+
+				// Let's add the file first
+	        	$git_cmd = "git add $file_esc";
+	        	$last_line = exec($git_cmd, $output_arr, $exit_code);
 
 	        	if (!empty($exit_code)) {
 			        $struct['result'] .= "Error: couldn't git add: [$file_esc]." . htmlentities(join('', $output_arr));
 		        }
-	        }
 
-			// @todo commit and push
-	        if (0 && empty($exit_code)) {
-		        $git_add_cmd = "git commit -m" . escapeshellarg("Pushed a release for " . $wp_res['plugin_id'] . ' on ' . date('r'));
-		        $last_line = exec($git_add_cmd, $output_arr, $exit_code);
+		        // Let's commit the file. It seems for windows it's better to have the file first
+		        // https://stackoverflow.com/questions/8795097/how-to-git-commit-a-single-file-directory
+		        $git_cmd = "git commit"
+		                   . " $file_esc "
+		                   . "-m" . escapeshellarg("Committing file [$file] for " . $wp_res['plugin_id']);
+
+		        $last_line = exec($git_cmd, $output_arr, $exit_code);
 
 		        if (!empty($exit_code)) {
 			        $struct['result'] .= "Error: couldn't git commit: [$file_esc]." . htmlentities(join('', $output_arr));
 		        }
 	        }
-			
+
+			// git push
+	        if (empty($exit_code)) {
+		        $git_cmd = "git push origin master";
+		        $last_line = exec($git_cmd, $output_arr, $exit_code);
+
+		        if (!empty($exit_code)) {
+			        $struct['result'] .= "Error: couldn't git push {$wp_res['plugin_id']}" . htmlentities(join('', $output_arr));
+		        } else {
+			        $struct['result'] .= ' pushed';
+		        }
+	        }
+
 	        chdir($cur_dir);
 
 	        break;
