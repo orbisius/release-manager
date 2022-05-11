@@ -18,12 +18,6 @@
 
     </div> <!-- /container -->
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    
-    <script src="share/js/jquery-2.1.1.min.js"></script>
-    <script src="assets/main.js"></script>
-    
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="share/bootstrap-3.3.1-dist/js/bootstrap.min.js"></script>
   </body>
