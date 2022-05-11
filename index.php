@@ -70,7 +70,7 @@ foreach ($plugin_dirs as $plugin_dir) {
                     
                     $v .= " Manage: <a href='$manage_site_pub' target='_blank'>Site</a>\n";
                     $v .= "| <a href='$manage_site_adm' target='_blank'>Admin</a>\n";
-                    $v .= '<br/><input class="full_width" type="text" value="' . $plugin_root_dir .'" onclick="this.select();" />';
+                    $v .= '<br/><input class="full_width" type="text" value="' . htmlentities($plugin_root_dir) .'" onclick="this.select();" />';
 //                    $v .= "<br/><a href='file://///c:/' title='If configured, firefox, can open local dirs.'>Open dir</a>";
 //                    $v .= "<br/><a href='file://$plugin_root_dir' title='If configured, firefox, can open local dirs.'>Open dir</a>";
                 }
