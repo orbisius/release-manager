@@ -100,11 +100,20 @@ try {
                 "url" => "https://orbisius.com/products/wordpress-plugins/{$wp_res['plugin_id']}/"
             );
 
+	        $cur_dir = getcwd(); // get it so we can go back jic
+	        $exit_code = 0;
+
+	        App_Release_Manager_Release::initEnv();
+
+	        $files = []; // to be committed
+
             $upd_file = $wp_res['target_release_dir'] . '/update.json';
             file_put_contents( $upd_file, json_encode( $update_rec, JSON_PRETTY_PRINT ) );
 
             if ( ! empty( $wp_res['change_log'] )) { // 1 level up is the change log
-                file_put_contents( dirname( $wp_res['target_release_dir'] ) . '/changelog.txt', $wp_res['change_log'] );
+				$change_log_file = dirname( $wp_res['target_release_dir'] ) . '/changelog.txt';
+                file_put_contents( $change_log_file, $wp_res['change_log'] );
+	            $files[] = $change_log_file;
             }
 
             $struct['result'] .= "<pre>";
@@ -119,15 +128,8 @@ try {
             $struct['result'] .= "</pre>";
 
             // Let's add to git the new files to git
-            $files = [
-	            $upd_file,
-	            $target_zip_file,
-            ];
-
-	        $cur_dir = getcwd(); // get it so we can go back jic
-	        $exit_code = 0;
-
-			App_Release_Manager_Release::initEnv();
+            $files[] = $upd_file;
+            $files[] = $target_zip_file;
 
 	        foreach ($files as $file) {
 		        chdir(dirname($file));
@@ -156,7 +158,7 @@ try {
 	        }
 
 			// git push
-	        if (empty($exit_code)) {
+	        if (0&& empty($exit_code)) {
 		        $git_cmd = "git push origin master";
 		        $last_line = exec($git_cmd, $output_arr, $exit_code);
 
