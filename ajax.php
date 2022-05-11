@@ -142,7 +142,7 @@ try {
 		        // Let's commit the file. It seems for windows it's better to have the file first
 		        // https://stackoverflow.com/questions/8795097/how-to-git-commit-a-single-file-directory
 		        $git_cmd = "git commit"
-		                   . " $file_esc "
+		                   . "-o $file_esc " // -o, --only commit only specified files
 		                   . "-m" . escapeshellarg("Committing file [$file] for " . $wp_res['plugin_id']);
 
 		        $last_line = exec($git_cmd, $output_arr, $exit_code);
