@@ -127,6 +127,8 @@ try {
 	        $cur_dir = getcwd(); // get it so we can go back jic
 	        $exit_code = 0;
 
+			App_Release_Manager_Release::initEnv();
+
 	        foreach ($files as $file) {
 		        chdir(dirname($file));
 		        $file_esc = escapeshellarg(basename($file));
