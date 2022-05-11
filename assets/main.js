@@ -18,7 +18,9 @@ var orbisius_release_manager_app = {
 };
 
 jQuery(document).ready(function ($) {
-    $('.push_release').on('click', function () {
+    // should work for ajax
+    $(document).on("click", ".push_release", function() {
+    //$('.push_release').on('click', function () {
         var plugin_id = $(this).data('id');
         var new_ver = $(this).data('new_ver');
         var plugin_dir = $(this).data('plugin_full_dir');
@@ -39,7 +41,9 @@ jQuery(document).ready(function ($) {
         });
     });
 
-    $('.push_pro_release').on('click', function () {
+    // should work for ajax
+    $(document).on("click", ".push_pro_release", function() {
+    //$('.push_pro_release').on('click', function () {
         var plugin_id = $(this).data('id');
         var new_ver = $(this).data('new_ver');
         var plugin_dir = $(this).data('plugin_full_dir');
