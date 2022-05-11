@@ -143,7 +143,7 @@ try {
 		        // https://stackoverflow.com/questions/8795097/how-to-git-commit-a-single-file-directory
 		        $git_cmd = "git commit"
 		                   . "-o $file_esc " // -o, --only commit only specified files
-		                   . "-m" . escapeshellarg("Committing file [$file] for " . $wp_res['plugin_id']);
+		                   . "-m " . escapeshellarg("Committing file [$file] for " . $wp_res['plugin_id']);
 
 		        $last_line = exec($git_cmd, $output_arr, $exit_code);
 
