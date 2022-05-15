@@ -218,7 +218,7 @@ foreach ($plugin_dirs as $plugin_dir) {
         echo APP_NL;
         echo "</div>\n";
 
-        // @todo check for alreay zzz_release file
+        // @todo check for already zzz_release file
         // check live version
         // add header + footer for this file -> move js & css in oun files.
         // commit changes from web?
