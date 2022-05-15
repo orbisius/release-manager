@@ -2,6 +2,14 @@
 
 /**
  * This file helps me release WordPress plugins easily.
+ *
+// @todo check for already zzz_release file
+// check live version
+// add header + footer for this file -> move js & css in oun files.
+// commit changes from web?
+// inline edit for versions ???
+// see diff
+ * make page rendering faster
  */
 require_once dirname( __FILE__ ) . '/header.php';
 
@@ -217,13 +225,6 @@ foreach ($plugin_dirs as $plugin_dir) {
         echo "<div class='result_$id'></div>\n";
         echo APP_NL;
         echo "</div>\n";
-
-        // @todo check for already zzz_release file
-        // check live version
-        // add header + footer for this file -> move js & css in oun files.
-        // commit changes from web?
-        // inline edit for versions ???
-        // see diff
     }
 
     echo "<hr />" . APP_NL;
