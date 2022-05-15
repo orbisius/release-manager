@@ -134,7 +134,7 @@ foreach ($plugin_dirs as $plugin_dir) {
                 $wc_tested_up_to_ver = empty( $data['WC tested up to'] ) ? '' : $data['WC tested up to'];
 
                 if ( ! empty( $wc_tested_up_to_ver ) ) {
-                    echo App_Release_Manager_String::msg( "WC tested up to: $min_wc_ver" . APP_NL, 1 );
+                    echo App_Release_Manager_String::msg( "WC tested up to: $wc_tested_up_to_ver" . APP_NL, 1 );
                     $ok ++;
                 } else {
                     echo App_Release_Manager_String::msg( "Missing: WC tested up to: " . APP_NL, 0 );
