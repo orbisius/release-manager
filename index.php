@@ -104,6 +104,36 @@ foreach ($plugin_dirs as $plugin_dir) {
                 $ok--;
             }
 
+            // Do we need to check WC tags?
+            $wc_regex = '#-(woocommerce|wc-ext)-#si';
+
+            if (preg_match($wc_regex, $plugin_root_dir)
+                || preg_match($wc_regex, $main_plugin_file)
+            ) {
+                // check WC requires if woocommerce plugin
+                $min_wc_ver = empty( $data['WC requires at least'] ) ? '' : $data['WC requires at least'];
+
+                // WC requires at least: 3.1
+                if ( ! empty( $min_wc_ver ) ) {
+                    echo App_Release_Manager_String::msg( "WC requires at least: $min_wc_ver" . APP_NL, 1 );
+                    $ok ++;
+                } else {
+                    echo App_Release_Manager_String::msg( "Missing: WC requires at least: " . APP_NL, 0 );
+                    $ok --;
+                }
+
+                // WC tested up to: 6.5
+                $wc_tested_up_to_ver = empty( $data['WC tested up to'] ) ? '' : $data['WC tested up to'];
+
+                if ( ! empty( $wc_tested_up_to_ver ) ) {
+                    echo App_Release_Manager_String::msg( "WC tested up to: $min_wc_ver" . APP_NL, 1 );
+                    $ok ++;
+                } else {
+                    echo App_Release_Manager_String::msg( "Missing: WC tested up to: " . APP_NL, 0 );
+                    $ok --;
+                }
+            }
+
             $tested_ver = empty( $data['Tested up to'] ) ? '0.0.0' : $data['Tested up to'];
 
             if ( strlen( $tested_ver ) != strlen( APP_LATEST_WP ) ) { // pad
