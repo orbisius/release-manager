@@ -39,10 +39,19 @@ foreach ($plugin_dirs as $plugin_dir) {
     echo sprintf("<div>Found: %d item(s)</div>", count($plugins));
 
     foreach ($plugins as $plugin_root_dir) {
+        $base_name = basename($plugin_root_dir);
+
+        // skip based on the name
+        if ((strpos($base_name, 'skip_') !== false) || (strpos($base_name, '_skip') !== false)) {
+            continue;
+        }
+
         // skipping plugins that are not tracked by a version control.
-        if (!is_dir($plugin_root_dir . '/.svn')
-                && !is_dir($plugin_root_dir . '/.git')
-                ) {
+        if (is_dir($plugin_root_dir . '/.svn')) {
+            // ok
+        } elseif (is_dir($plugin_root_dir . '/.git')) {
+            // ok
+        } else {
             continue;
         }
 

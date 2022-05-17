@@ -1,6 +1,7 @@
 
 Links to public and admin site.
 
+skips based on the name. The folder has to have _skip in its name or skip_
 
 Todo
 	read from plugin's readme file to guess the product link in the update.json (pro)
