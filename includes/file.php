@@ -153,7 +153,7 @@ class App_Release_Manager_File {
                     || !preg_match('#^[\w+\s]{2,20}:\s*\w+#si', $line) // colon must be within the first 2 to 20 chars
                     || preg_match('#^(//|/\*|\*)#si', $line)
                     || !preg_match('#\w+\s*:\s*\w+#si', $line) // colon surrounded by something non numeric
-                    || preg_match('#^https?://[\w-?&%\#+.=\s/]+$#si', $line)) {
+                    || preg_match('#^https?://[\w\-?&%\#+.=\s/]+$#si', $line)) {
                 continue;
             }
 
