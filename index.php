@@ -31,18 +31,20 @@ foreach ($plugin_dirs as $plugin_dir) {
     if (empty($plugin_dir)) {
         continue;
     }
-    
-    echo "<h4>Processing: [$plugin_dir]</h4>";
+
 	$plugin_dir = str_replace('\\', '/', $plugin_dir);
     $plugins = glob($plugin_dir . '*', GLOB_ONLYDIR);
     $plugin_info_rec = array();
     //echo sprintf("<div>Found: %d item(s)</div>", count($plugins));
 
-    foreach ($plugins as $plugin_root_dir) {
+    // Preprocess and skip non-plugin dirs. Doing extra work but don't have the time to refactor the code.
+
+    foreach ($plugins as $idx => $plugin_root_dir) {
         $base_name = basename($plugin_root_dir);
 
         // skip based on the name
         if ((strpos($base_name, 'skip_') !== false) || (strpos($base_name, '_skip') !== false)) {
+            unset($plugins[$idx]);
             continue;
         }
 
@@ -52,10 +54,30 @@ foreach ($plugin_dirs as $plugin_dir) {
         } elseif (is_dir($plugin_root_dir . '/.git')) {
             // ok
         } else {
+            unset($plugins[$idx]);
             continue;
         }
 
+        $main_plugin_file = App_Release_Manager_File::findMainPluginFile($plugin_root_dir);
+
+        if (empty($main_plugin_file)) {
+            unset($plugins[$idx]);
+            continue;
+        }
+
+        $data = App_Release_Manager_File::parsePluginMeta($main_plugin_file);
+
+        if (empty($data['Plugin Name'])) {
+            unset($plugins[$idx]);
+            continue;
+        }
+    }
+
+    echo "<h4>Processing: [$plugin_dir]</h4>";
+
+    foreach ($plugins as $plugin_root_dir) {
         $ok = 0;
+        $base_name = basename($plugin_root_dir);
         $plugin_root_dir = rtrim($plugin_root_dir, '/') . '/';
         
         $manage_link = $plugin_root_dir;
