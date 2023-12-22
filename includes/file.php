@@ -71,9 +71,9 @@ class App_Release_Manager_File {
      * @param int $seek_bytes should we start from the start?
      * @return string
      */
-    static function readFilePartially($file, $len_bytes = 512, $seek_bytes = 0) {
+    static function readFilePartially($file, $len_bytes = 1024, $seek_bytes = 0) {
         $buff = '';
-        
+
 		if (!file_exists($file)) {
             return false;
         }
@@ -81,11 +81,15 @@ class App_Release_Manager_File {
         $file_handle = fopen($file, 'rb');
 
         if (!empty($file_handle)) {
+            flock($file_handle, LOCK_SH);
+
             if ($seek_bytes > 0) {
                 fseek($file_handle, $seek_bytes);
             }
 
             $buff = fread($file_handle, $len_bytes);
+
+            flock($file_handle, LOCK_UN);
             fclose($file_handle);
         }
 
@@ -101,7 +105,7 @@ class App_Release_Manager_File {
      * @return string wp-content/plugins/like-gate/like-gate.php or false if not found.
      */
     static public function findMainPluginFile($folder = '') {
-        $folder = trim($folder, '/') . '/';
+        $folder = rtrim($folder, '/') . '/';
         $files_arr = glob($folder . '*.php'); // list only php files.
 
         foreach ($files_arr	as $file) {
