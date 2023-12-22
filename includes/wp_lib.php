@@ -8,7 +8,12 @@ class App_Release_Manager_WP_Lib {
     static public function create_update( $main_plugin_file ) {
 
     }
-    
+
+    static public function findProReleaseBaseDir() {
+        // /Copy/Dropbox/cloud/projects/clients/orbclub.com/htdocs/wpu/app/data/plugins/rel
+        return defined('APP_ORBISIUS_PRO_BASE_DIR') ? APP_ORBISIUS_PRO_BASE_DIR : '';
+    }
+
     /**
      *
      * @param type $file
@@ -16,7 +21,11 @@ class App_Release_Manager_WP_Lib {
     static public function parse( $main_plugin_file ) {
         $rec = array();
 
-        $pro_target_release_root_dir = '/Copy/Dropbox/cloud/projects/clients/orbclub.com/htdocs/wpu/app/data/plugins/rel';
+        $pro_target_release_root_dir = self::findProReleaseBaseDir();
+
+        if (empty($pro_target_release_root_dir)) {
+            throw new Exception("Target pro release dir was not set");
+        }
 
         $plugin_id = $main_plugin_file;
         $plugin_id = basename($plugin_id);
