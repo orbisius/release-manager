@@ -36,7 +36,7 @@ foreach ($plugin_dirs as $plugin_dir) {
 	$plugin_dir = str_replace('\\', '/', $plugin_dir);
     $plugins = glob($plugin_dir . '*', GLOB_ONLYDIR);
     $plugin_info_rec = array();
-    echo sprintf("<div>Found: %d item(s)</div>", count($plugins));
+    //echo sprintf("<div>Found: %d item(s)</div>", count($plugins));
 
     foreach ($plugins as $plugin_root_dir) {
         $base_name = basename($plugin_root_dir);
@@ -69,7 +69,17 @@ foreach ($plugin_dirs as $plugin_dir) {
         echo "<div class='plugin_container'>\n";
 
         $main_plugin_file = App_Release_Manager_File::findMainPluginFile($plugin_root_dir);
+
+        if (empty($main_plugin_file)) {
+            //echo "Not a plugin: $plugin_root_dir\n";
+            continue;
+        }
+
         $data = App_Release_Manager_File::parsePluginMeta($main_plugin_file);
+
+        if (empty($data['Plugin Name'])) {
+            continue;
+        }
 
         if (!empty($data['Plugin Name'])) {
             $ver = $data['Version'];
