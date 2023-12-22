@@ -167,10 +167,10 @@ class App_Release_Manager_File {
         }
 
         $defaults = array(
-            'Plugin Name' => 'n/a',
-            'Version' => 'n/a',
-            'Tested up to' => 'n/a',
-            'Stable tag' => 'n/a',
+            'Plugin Name' => '',
+            'Version' => '',
+            'Tested up to' => '',
+            'Stable tag' => '',
         );
 
         $data = array_merge($defaults, $data);
