@@ -117,7 +117,7 @@ try {
 	        $files = []; // to be committed
 
             $upd_file = $wp_res['target_release_dir'] . '/update.json';
-            file_put_contents( $upd_file, json_encode( $update_rec, JSON_PRETTY_PRINT ) );
+            file_put_contents( $upd_file, json_encode( $update_rec, JSON_PRETTY_PRINT ), LOCK_EX );
 
             if ( ! empty( $wp_res['change_log'] )) { // 1 level up is the change log
 				$change_log_file = dirname( $wp_res['target_release_dir'] ) . '/changelog.txt';
