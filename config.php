@@ -54,7 +54,7 @@ function rel_mng_get_latest_wp_version() {
             $dl_link = strip_tags($dl_link);
 
             if (preg_match('#(\d+\.\d+(?:\.\d+)?[\w]*)#si', $dl_link, $ver_matches)) { // 1.2.3 or 1.2.3b
-                file_put_contents($ver_file, $ver_matches[1]);
+                file_put_contents($ver_file, $ver_matches[1], LOCK_EX);
             }
         }
     } else {
