@@ -41,6 +41,7 @@ foreach ($plugin_dirs as $plugin_dir) {
 
     foreach ($plugins as $idx => $plugin_root_dir) {
         $base_name = basename($plugin_root_dir);
+        $plugin_root_dir = rtrim($plugin_root_dir, '/') . '/';
 
         // skip based on the name
         if ((strpos($base_name, 'skip_') !== false) || (strpos($base_name, '_skip') !== false)) {
@@ -54,13 +55,16 @@ foreach ($plugin_dirs as $plugin_dir) {
         } elseif (is_dir($plugin_root_dir . '/.git')) {
             // ok
         } else {
+            //echo "Skipping $idx:$base_name\n";
             unset($plugins[$idx]);
             continue;
         }
 
+//        echo "$plugin_root_dir\n";
         $main_plugin_file = App_Release_Manager_File::findMainPluginFile($plugin_root_dir);
 
         if (empty($main_plugin_file)) {
+//            echo "Skipping $idx:$base_name\n";
             unset($plugins[$idx]);
             continue;
         }
