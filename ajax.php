@@ -73,7 +73,7 @@ try {
 				foreach ($lines as $item) {
 					$exclude = '';
 					$item_fmt = $item;
-					$item_fmt = trim($item_fmt, '/');
+					$item_fmt = rtrim($item_fmt, '/');
 					$period_pos = strpos(basename($item_fmt), '.'); // must be a file
 
 					if ($period_pos !== false) {
