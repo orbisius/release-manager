@@ -32,7 +32,7 @@ try {
             $wp_res = App_Release_Manager_WP_Lib::parse( $main_plugin_file );
 
             if ( ! is_dir( $wp_res[ 'target_release_dir' ] ) ) {
-                mkdir( $wp_res[ 'target_release_dir' ], 0750, 1 );
+                mkdir( $wp_res[ 'target_release_dir' ], 0750, true );
             }
 
             if ( empty( $wp_res['plugin_id'] ) ) {
@@ -76,7 +76,11 @@ try {
 				// dirs: */mu-plugins/*
 				// '-x ' . escapeshellarg('*.idea/*'),
 				foreach ($lines as $item) {
-					$exclude = '';
+					if (preg_match('/^\h*[#;]/si', $item)) { // comments?
+                        continue;
+                    }
+
+                    $exclude = '';
 					$item_fmt = $item;
 					$item_fmt = rtrim($item_fmt, '/');
 					$period_pos = strpos(basename($item_fmt), '.'); // must be a file
