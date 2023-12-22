@@ -18,6 +18,10 @@ if ( ! defined( 'APP_SVN_PASS' ) ) {
     define( 'APP_SVN_PASS', "THIS-IS-SUPPOSED-TO-BE-YOUR-WP-PASS" );
 }
 
+if ( ! defined( 'APP_SCAN_DIRS' ) ) {
+    define( 'APP_SCAN_DIRS', dirname(dirname(__DIR__) ) );
+}
+
 require_once dirname( __FILE__ ) . '/includes/file.php';
 require_once dirname( __FILE__ ) . '/includes/wp_lib.php';
 require_once dirname( __FILE__ ) . '/includes/string.php';
