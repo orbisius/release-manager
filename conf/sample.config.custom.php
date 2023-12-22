@@ -1,5 +1,11 @@
 <?php
 
+$orb_rel_dir = dirname(dirname(dirname(__DIR__))) . '/wpu/';
+
+if (is_dir($orb_rel_dir)) {
+    define('APP_ORBISIUS_PRO_BASE_DIR', $orb_rel_dir);
+}
+
 // Define your WordPress.org credentials.
 define( 'APP_SVN_USER', "your-wp-user" );
 define( 'APP_SVN_PASS', "your-wp-pass" );
