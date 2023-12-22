@@ -9,8 +9,8 @@ class App_Release_Manager_File {
      * The default latest.zip file contains wordpress in it.
      * @todo read the release_manager_ignore file and skip files and dirs.
      * App_Release_Manager_File::archive();
-     * @param str $target_archive_file
-     * @param str $path
+     * @param string $target_archive_file
+     * @param string $path
      * @return string
      * @see http://askubuntu.com/questions/28476/how-do-i-zip-up-a-folder-but-exclude-the-git-subfolder
      */
@@ -120,8 +120,8 @@ class App_Release_Manager_File {
      * Parses the meta info from a plugin. Values are separated by a colon (:).
      * If buff is passed it'll be used instead of reading the file's stuff.
      * App_Release_Manager_File::parsePluginMeta();
-     * @param str $main_plugin_file
-     * @param str $buff (optional)
+     * @param string $main_plugin_file
+     * @param string $buff (optional)
      * @return array
      */
     static public function parsePluginMeta($main_plugin_file, $buff = '') {
