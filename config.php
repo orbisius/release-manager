@@ -6,6 +6,10 @@ if (!function_exists('shell_exec')) {
 
 define( 'APP_BASE_DIR', dirname( __FILE__ ) );
 
+define( 'APP_GIT_BIN', @is_file('/usr/local/bin/ogit') ? '/usr/local/bin/ogit' : '/usr/bin/git');
+
+define( 'APP_SVN_BIN', 'svn');
+
 define( 'APP_NL', "<br/>\n" );
 define( 'APP_LIVE_ENV', empty($_SERVER['DEV_ENV']) );
 define( 'APP_LATEST_WP', rel_mng_get_latest_wp_version() );// load it dyn
