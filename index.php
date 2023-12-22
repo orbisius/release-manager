@@ -26,7 +26,7 @@ if ( defined( 'APP_SCAN_DIRS' ) ) {
 foreach ($plugin_dirs as $plugin_dir) {
     $plugin_dir = trim($plugin_dir);
     $plugin_dir = str_replace('\\', '/', $plugin_dir); // win dir sep
-    $plugin_dir = trim($plugin_dir, '/') . '/';
+    $plugin_dir = rtrim($plugin_dir, '/') . '/';
 
     if (empty($plugin_dir)) {
         continue;
