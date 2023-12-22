@@ -1,5 +1,9 @@
 <?php
 
+if (!function_exists('shell_exec')) {
+    die('Error: shell_exec() is not enabled');
+}
+
 define( 'APP_BASE_DIR', dirname( __FILE__ ) );
 
 define( 'APP_NL', "<br/>\n" );
