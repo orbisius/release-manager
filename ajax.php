@@ -24,6 +24,11 @@ try {
     switch ($cmd) {
         case 'package_pro_plugin':
             $main_plugin_file = App_Release_Manager_File::findMainPluginFile($plugin_dir);
+
+            if (empty($main_plugin_file)) {
+                throw new Exception("Cannot find main plugin file.");
+            }
+
             $wp_res = App_Release_Manager_WP_Lib::parse( $main_plugin_file );
 
             if ( ! is_dir( $wp_res[ 'target_release_dir' ] ) ) {
@@ -252,6 +257,6 @@ try {
     $struct['status'] = 0;
     $struct['msg'] = $e->getMessage();
     $struct['result'] .= App_Release_Manager_String::msg($e->getMessage(), 0);
+} finally {
+    App_Release_Manager_Ajax::sendJSON($struct);
 }
-
-App_Release_Manager_Ajax::sendJSON($struct);
