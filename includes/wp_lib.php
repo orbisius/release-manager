@@ -16,7 +16,7 @@ class App_Release_Manager_WP_Lib {
 
     /**
      *
-     * @param type $file
+     * @param string $file
      */
     static public function parse( $main_plugin_file ) {
         $rec = array();
