@@ -186,7 +186,7 @@ foreach ($plugin_dirs as $plugin_dir) {
 
             $svn_info = `svn status $plugin_root_dir`;
 
-            // Let's check if we have commited all of the changes.
+            // Let's check if we have committed all the changes.
             // this regex is a multi-line check see 'm' after the #
             if (preg_match('#^M\s+#mi', $svn_info)) {
                 echo App_Release_Manager_String::msg("There are still uncommitted modified files." . APP_NL, 0);
