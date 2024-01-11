@@ -50,7 +50,7 @@ class App_Release_Manager_File {
         // -q -> quiet
         // -r -> recursive
         // -9 -> maximum compression
-        $cmd = "$binary -r -9 $target_archive_file $folder2zip/*.* $options_extra_str 2>&1";
+        $cmd = "$binary -r -9 $target_archive_file $folder2zip $options_extra_str 2>&1";
 
         //$result = `$cmd`; // it is faster to call OS funcs
         $output_arr = array();
