@@ -139,13 +139,14 @@ try {
             // Let's add to git the new files to git
             $files[] = $upd_file;
             $files[] = $target_zip_file;
+            $git_cli = APP_GIT_BIN;
 
 	        foreach ($files as $file) {
 		        chdir(dirname($file));
 		        $file_esc = escapeshellarg(basename($file));
 
 				// Let's add the file first
-	        	$git_cmd = "git add $file_esc";
+	        	$git_cmd = "$git_cli add $file_esc";
 	        	$last_line = exec($git_cmd, $output_arr, $exit_code);
 
 	        	if (!empty($exit_code)) {
@@ -154,7 +155,7 @@ try {
 
 		        // Let's commit the file. It seems for windows it's better to have the file first
 		        // https://stackoverflow.com/questions/8795097/how-to-git-commit-a-single-file-directory
-		        $git_cmd = "git commit"
+		        $git_cmd = "$git_cli commit"
 		                   . " -o $file_esc " // -o, --only commit only specified files
 		                   . " -m " . escapeshellarg("Committing file [$file] for " . $wp_res['plugin_id']);
 
@@ -164,7 +165,20 @@ try {
 		        if (!empty($exit_code)) {
 			        $struct['result'] .= "Error: couldn't git commit: [$file_esc]." . htmlentities(join('', $output_arr));
 		        }
-	        }
+	        } // loop
+
+            // try to push it too
+            if (strpos($git_cli, '/ogit') !== false) {
+                $git_cmd = "$git_cli push origin master";
+                $git_cmd .= ' 2>&1';
+                $last_line = exec($git_cmd, $output_arr, $exit_code);
+
+                if (empty($exit_code)) {
+                    $struct['result'] .= ' pushed';
+                } else {
+                    $struct['result'] .= "Error: couldn't git do git push: [$file_esc]." . htmlentities(join('', $output_arr));
+                }
+            }
 
 			// git push
 	        if (0&& empty($exit_code)) {
