@@ -178,7 +178,7 @@ try {
                 if (empty($exit_code)) {
                     $struct['result'] .= ' pushed';
                 } else {
-                    $struct['result'] .= "Error: couldn't git do git push: [$file_esc]." . htmlentities(join('', $output_arr));
+                    $struct['result'] .= "<pre>Error: couldn't git do git push: [$file_esc]." . htmlentities(join('', $output_arr) . "</pre>");
                 }
             }
 
