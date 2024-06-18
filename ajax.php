@@ -150,7 +150,8 @@ try {
 	        	$last_line = exec($git_cmd, $output_arr, $exit_code);
 
 	        	if (!empty($exit_code)) {
-			        $struct['result'] .= "Error: couldn't git add: [$file_esc]." . htmlentities(join('', $output_arr));
+			        $struct['result'] .= "<pre>Error: couldn't git add: [$file_esc]." . htmlentities(join('', $output_arr) . "</pre>");
+                    continue;
 		        }
 
 		        // Let's commit the file. It seems for windows it's better to have the file first
@@ -163,7 +164,8 @@ try {
 		        $last_line = exec($git_cmd, $output_arr, $exit_code);
 
 		        if (!empty($exit_code)) {
-			        $struct['result'] .= "Error: couldn't git commit: [$file_esc]." . htmlentities(join('', $output_arr));
+			        $struct['result'] .= "<pre>Error: couldn't git commit: [$file_esc]." . htmlentities(join('', $output_arr) . "</pre>");
+                    continue;
 		        }
 	        } // loop
 
