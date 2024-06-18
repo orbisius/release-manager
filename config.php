@@ -4,6 +4,20 @@ if (!function_exists('shell_exec')) {
     die('Error: shell_exec() is not enabled');
 }
 
+// for some reason this may be empty. Let's try to get and set it.
+$home_dir = getenv('HOME');
+
+if (empty($home_dir) && function_exists('posix_getpwnam')) {
+    $user_data = posix_getpwnam(get_current_user());
+    $home_dir = empty($user_data['dir']) ? '' : $user_data['dir'];
+
+    if (!empty($home_dir)) {
+        putenv("HOME=$home_dir");
+    } else {
+        putenv('HOME');
+    }
+}
+
 define( 'APP_BASE_DIR', dirname( __FILE__ ) );
 
 define( 'APP_GIT_BIN', @is_file('/usr/local/bin/ogit') ? '/usr/local/bin/ogit' : '/usr/bin/git');
