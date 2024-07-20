@@ -36,6 +36,8 @@ class App_Release_Manager_File {
             '-x ' . escapeshellarg('*.idea/*'),
             '-x ' . escapeshellarg('*/.ht_sandbox_data/*'),
             '-x ' . escapeshellarg('*/mu-plugins/*'),
+            '-x ' . escapeshellarg('*/doc/*'),
+            '-x ' . escapeshellarg('*/docs/*'),
         );
 
 		if (!empty($extra_params['exclude'])) {
