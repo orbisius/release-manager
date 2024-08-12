@@ -27,8 +27,8 @@ class App_Release_Manager_Release {
 
 		// set some timeout
 		// https://resources.collab.net/blogs/tips-on-git
-		putenv("GIT_HTTP_LOW_SPEED_TIME=5");
-		putenv("GIT_HTTP_LOW_SPEED_LIMIT=1000"); //  download speed in bytes per second.
+		putenv("GIT_HTTP_LOW_SPEED_TIME=60");
+		putenv("GIT_HTTP_LOW_SPEED_LIMIT=32768"); //  download speed in bytes per second.
 
 		return 1;
 	}
