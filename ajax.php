@@ -145,6 +145,23 @@ try {
 		        chdir(dirname($file));
 		        $file_esc = escapeshellarg(basename($file));
 
+                // Let's check if this file was added already
+                $git_cmd = "$git_cli status $file_esc";
+                $last_line = exec($git_cmd, $output_arr, $exit_code);
+
+                if (!empty($exit_code)) {
+                    $struct['result'] .= "<pre>Error: couldn't git status: [$file_esc]." . htmlentities(join('', $output_arr) . "</pre>");
+                    continue;
+                }
+
+                // if ? or modified then add otherwise skip?
+                $last_line = trim($last_line);
+
+                if (!preg_match('#^(\?|M)\h+#si', $last_line)) {
+                    $struct['result'] .= "File [$file_esc] is not modified or new. Skipping it.\n";
+                    continue;
+                }
+
 				// Let's add the file first
 	        	$git_cmd = "$git_cli add $file_esc";
 	        	$last_line = exec($git_cmd, $output_arr, $exit_code);
