@@ -241,6 +241,7 @@ try {
                     . ' --message=' . escapeshellarg("Released version $ver") . ' 2>&1';
 
             set_time_limit(6 * 60);
+
             //$run_cmd = $cmd_tag;
             $run_cmd = `$cmd_tag`; // svn commit is slow sometimes (or most of the time).
 
