@@ -58,7 +58,7 @@ require_once dirname( __FILE__ ) . '/includes/release.php';
  */
 function rel_mng_get_latest_wp_version() {
     $url = 'http://wordpress.org/download/';
-    $ver = '4.2.4';
+    $ver = '6.5.1';
     $ver_file = APP_BASE_DIR . '/data/latest_wp_ver.txt';
 
     if ( !file_exists($ver_file) || (time() - filemtime($ver_file) > 4 * 3600)) {
