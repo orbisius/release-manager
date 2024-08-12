@@ -142,7 +142,9 @@ try {
             $git_cli = APP_GIT_BIN;
 
 	        foreach ($files as $file) {
-		        chdir(dirname($file));
+		        $file_dir = dirname($file);
+		        chdir($file_dir);
+
 		        $file_esc = escapeshellarg(basename($file));
 
                 // Let's check if this file was added already
