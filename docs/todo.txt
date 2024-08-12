@@ -7,3 +7,4 @@ update the UI rendering so it's quick scan and JS hook on document(element).on('
 rendered.
 or maybe expand only on click and not by default for a quick scan
 
+test for duplicated header plugin tags?
