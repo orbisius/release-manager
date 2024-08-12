@@ -171,12 +171,24 @@ try {
 
             // try to push it too
             if (strpos($git_cli, '/ogit') !== false) {
+                // Let's do pull first just in case. ? or fetch?
+                $git_cmd = "$git_cli pull";
+                $git_cmd .= ' 2>&1';
+                $last_line = exec($git_cmd, $output_arr, $exit_code);
+
+                if (empty($exit_code)) {
+                    $struct['result'] .= " pulled\n";
+                } else {
+                    $struct['result'] .= "<pre>Error: couldn't git do git push: [$file_esc]." . htmlentities(join('', $output_arr) . "</pre>");
+                }
+
+                // now try to push
                 $git_cmd = "$git_cli push origin master";
                 $git_cmd .= ' 2>&1';
                 $last_line = exec($git_cmd, $output_arr, $exit_code);
 
                 if (empty($exit_code)) {
-                    $struct['result'] .= ' pushed';
+                    $struct['result'] .= " pushed\n";
                 } else {
                     $struct['result'] .= "<pre>Error: couldn't git do git push: [$file_esc]." . htmlentities(join('', $output_arr) . "</pre>");
                 }
