@@ -153,12 +153,12 @@ class App_Release_Manager_File {
         $data['raw_lines'] = $lines;
 
         foreach ($lines as $line) {
-            $line = trim($line);
+            $line = trim($line, " \t\n\r\0\x0B*"); // rm * as well
             
             if ((strpos($line, ':') === false)
                     || !preg_match('#^[\w+\s]{2,20}:\s*\w+#si', $line) // colon must be within the first 2 to 20 chars
                     || preg_match('#^(//|/\*|\*)#si', $line)
-                    || !preg_match('#\w+\s*:\s*\w+#si', $line) // colon surrounded by something non numeric
+                    || !preg_match('#\w+\s*:\s*\w+#si', $line) // colon surrounded by something non-numeric
                     || preg_match('#^https?://[\w\-?&%\#+.=\s/]+$#si', $line)) {
                 continue;
             }
