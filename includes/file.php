@@ -28,7 +28,7 @@ class App_Release_Manager_File {
             '-x ' . escapeshellarg('*.log*'),
             '-x ' . escapeshellarg('*.bak*'),
             '-x ' . escapeshellarg('*.zip*'),
-            '-x ' . escapeshellarg('*screenshot-*'),
+            '-x ' . escapeshellarg('*screenshot*'),
             '-x ' . escapeshellarg('*.gitignore*'),
             '-x ' . escapeshellarg('*.release_manager_ignore*'),
             '-x ' . escapeshellarg('*nbproject*'),
@@ -38,6 +38,7 @@ class App_Release_Manager_File {
             '-x ' . escapeshellarg('*/mu-plugins/*'),
             '-x ' . escapeshellarg('*/doc/*'),
             '-x ' . escapeshellarg('*/docs/*'),
+            '-x ' . escapeshellarg('*/zzz_*/*'),
         );
 
 		if (!empty($extra_params['exclude'])) {
