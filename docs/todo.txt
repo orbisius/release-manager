@@ -1,6 +1,9 @@
 Todo
 =======
 
+tags less than 5 chars
+check readme -> short descr less than 150 chars
+
 on release -> commit and push
 
 update the UI rendering so it's quick scan and JS hook on document(element).on('click') and not when the page is fully
