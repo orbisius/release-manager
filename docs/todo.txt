@@ -1,6 +1,7 @@
 Todo
 =======
 
+scan readme for more checks
 tags less than 5 chars
 check readme -> short descr less than 150 chars
 
