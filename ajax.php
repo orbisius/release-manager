@@ -32,7 +32,11 @@ try {
             $wp_res = App_Release_Manager_WP_Lib::parse( $main_plugin_file );
 
             if ( ! is_dir( $wp_res[ 'target_release_dir' ] ) ) {
-                mkdir( $wp_res[ 'target_release_dir' ], 0750, true );
+                $mkdir_res = mkdir( $wp_res[ 'target_release_dir' ], 0700, true );
+
+                if ( empty( $mkdir_res ) ) {
+                    throw new Exception( "Couldn't create the release dir." );
+                }
             }
 
             if ( empty( $wp_res['plugin_id'] ) ) {
