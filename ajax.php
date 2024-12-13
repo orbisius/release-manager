@@ -161,7 +161,7 @@ try {
 		        $file_esc = escapeshellarg($file_base);
 
                 // Let's check if this file was added already
-                $git_cmd = "$git_cli status -s $file_esc";
+                $git_cmd = "$git_cli status -s $file_esc"; // short status and it displays ?? and M
                 $last_line = exec($git_cmd, $output_arr, $exit_code);
 
                 if (!empty($exit_code)) {
@@ -172,7 +172,7 @@ try {
                 // if ? or modified then add otherwise skip?
                 $last_line = trim($last_line);
 
-                if (!preg_match('#^(\?|M)\h+#si', $last_line)) {
+                if (!preg_match('#^\h*(\?+|M)\h+' . preg_quote($file_base, '#') . '#si', $last_line)) {
                     $struct['result'] .= "File [$file_esc] is not modified or new. Skipping it [$last_line].\n";
                     continue;
                 }
