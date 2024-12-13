@@ -99,6 +99,10 @@ try {
             $plugin_dir = $wp_res['plugin_dir'];
             $zip_res = App_Release_Manager_File::archive( $target_zip_file, $plugin_dir, $extra_cool_params );
 
+            if (empty($zip_res)) {
+                throw new Exception("Couldn't create the zip file.");
+            }
+
             $update_rec = array(
                 "author" => "<a href='https://orbisius.com' target='_blank'>Orbisius.com</a>",
                 "author_profile" => "https://profiles.wordpress.org/lordspace/",
@@ -117,7 +121,11 @@ try {
 	        $files = []; // to be committed
 
             $upd_file = $wp_res['target_release_dir'] . '/update.json';
-            file_put_contents( $upd_file, json_encode( $update_rec, JSON_PRETTY_PRINT ), LOCK_EX );
+            $save_res = file_put_contents( $upd_file, json_encode( $update_rec, JSON_PRETTY_PRINT ), LOCK_EX );
+
+            if (empty($save_res)) {
+                throw new Exception("Couldn't save the update.json file in release dir.");
+            }
 
             if ( ! empty( $wp_res['change_log'] )) { // 1 level up is the change log
 				$change_log_file = dirname( $wp_res['target_release_dir'] ) . '/changelog.txt';
@@ -148,7 +156,7 @@ try {
 		        $file_esc = escapeshellarg(basename($file));
 
                 // Let's check if this file was added already
-                $git_cmd = "$git_cli status $file_esc";
+                $git_cmd = "$git_cli status -s $file_esc";
                 $last_line = exec($git_cmd, $output_arr, $exit_code);
 
                 if (!empty($exit_code)) {
@@ -160,7 +168,7 @@ try {
                 $last_line = trim($last_line);
 
                 if (!preg_match('#^(\?|M)\h+#si', $last_line)) {
-                    $struct['result'] .= "File [$file_esc] is not modified or new. Skipping it.\n";
+                    $struct['result'] .= "File [$file_esc] is not modified or new. Skipping it [$last_line].\n";
                     continue;
                 }
 
@@ -303,8 +311,6 @@ try {
         default:
             break;
     }
-
-
 } catch (Exception $e) {
     $struct['status'] = 0;
     $struct['msg'] = $e->getMessage();
