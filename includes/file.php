@@ -11,7 +11,7 @@ class App_Release_Manager_File {
      * App_Release_Manager_File::archive();
      * @param string $target_archive_file
      * @param string $path
-     * @return string
+     * @return bool
      * @see http://askubuntu.com/questions/28476/how-do-i-zip-up-a-folder-but-exclude-the-git-subfolder
      */
     public static function archive($target_archive_file, $path, $extra_params = []) {
@@ -57,13 +57,10 @@ class App_Release_Manager_File {
 
         //$result = `$cmd`; // it is faster to call OS funcs
         $output_arr = array();
-        $return_var = '';
-
         exec( $cmd, $output_arr, $result );
-
         chdir($current_dir);
 
-        return $result;
+        return empty($result);
     }
 
     /**
