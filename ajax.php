@@ -80,7 +80,7 @@ try {
 				// dirs: */mu-plugins/*
 				// '-x ' . escapeshellarg('*.idea/*'),
 				foreach ($lines as $item) {
-					if (preg_match('/^\h*[#;]/si', $item)) { // comments?
+					if (empty($item) || preg_match('/^\h*[#;]/si', $item)) { // comments?
                         continue;
                     }
 
