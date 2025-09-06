@@ -33,6 +33,8 @@ class App_Release_Manager_File {
             '-x ' . escapeshellarg('*.release_manager_ignore*'),
             '-x ' . escapeshellarg('*nbproject*'),
             '-x ' . escapeshellarg('*project*'),
+            '-x ' . escapeshellarg('*.claude/*'),
+            '-x ' . escapeshellarg('*.vscode/*'),
             '-x ' . escapeshellarg('*.idea/*'),
             '-x ' . escapeshellarg('*/.ht_sandbox_data/*'),
             '-x ' . escapeshellarg('*/mu-plugins/*'),
