@@ -55,7 +55,9 @@ class App_Release_Manager_File {
 
         // Remove existing archive to ensure a clean build (zip updates existing archives otherwise)
         if (file_exists($target_archive_file)) {
-            unlink($target_archive_file);
+            if (!unlink($target_archive_file)) {
+                return false;
+            }
         }
 
         // -q -> quiet
