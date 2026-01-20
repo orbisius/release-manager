@@ -67,6 +67,13 @@ try {
 				$buff .= "\n";
 			}
 
+	        $dist_ignore = "$plugin_dir/.distignore";
+
+	        if (file_exists($dist_ignore)) {
+				$buff .= file_get_contents($dist_ignore);
+				$buff .= "\n";
+			}
+
 	        $buff = trim($buff);
 
 	        if (!empty($buff)) {
