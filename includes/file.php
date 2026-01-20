@@ -53,6 +53,11 @@ class App_Release_Manager_File {
 
         $options_extra_str = join(' ', $options_extra);
 
+        // Remove existing archive to ensure a clean build (zip updates existing archives otherwise)
+        if (file_exists($target_archive_file)) {
+            unlink($target_archive_file);
+        }
+
         // -q -> quiet
         // -r -> recursive
         // -9 -> maximum compression
