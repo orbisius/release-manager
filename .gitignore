@@ -2,3 +2,5 @@ nbproject
 .idea
 config.custom.php
 .env
+/.ht_zzz_php_errors.log
+/data/latest_wp_ver.txt
