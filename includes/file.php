@@ -19,7 +19,7 @@ class App_Release_Manager_File {
         chdir(dirname($path));
         $folder2zip = basename($path);
 
-        $binary = 'zip'; // /bin/zip ? or zip.exe; the exclusion for the directory doesn't work on Windows
+        $binary = APP_ZIP_BIN;
 
         // exclude some files and especially our mu plugin so people don't see how to get access to the system.
         $options_extra = array(
@@ -42,6 +42,7 @@ class App_Release_Manager_File {
             '-x ' . escapeshellarg('*/doc/*'),
             '-x ' . escapeshellarg('*/docs/*'),
             '-x ' . escapeshellarg('*/zzz_*/*'),
+            '-x ' . escapeshellarg('*/zzz_project/*'),
         );
 
 		if (!empty($extra_params['exclude'])) {
