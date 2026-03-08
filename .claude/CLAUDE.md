@@ -21,7 +21,7 @@ This is a guide for Claude instances working on the Release Manager tool, a web-
 - `/conf/sample.config.custom.php` - Sample custom config template
 
 ### Include Classes
-- `/includes/file.php` - `App_Release_Manager_File` — archive (zip), readFilePartially, findMainPluginFile, parsePluginMeta
+- `/includes/file.php` - `App_Release_Manager_File` — findBinary, archive (zip), readFilePartially, findMainPluginFile, parsePluginMeta
 - `/includes/release.php` - `App_Release_Manager_Release` — getRelease/setRelease (version tracking via `zzz_release.txt`), initEnv (git env vars)
 - `/includes/string.php` - `App_Release_Manager_String` — msg() for status messages (ok/warn/notice with glyphicons)
 - `/includes/wp_lib.php` - `App_Release_Manager_WP_Lib` — parse() for pro plugin metadata, findProReleaseDir()
@@ -46,7 +46,10 @@ This is a guide for Claude instances working on the Release Manager tool, a web-
 
 ## Coding Style Rules
 
-- **NEVER stack function calls** — resolve to a variable first, then pass it
+- **NEVER stack function calls** — resolve to a variable first, then pass it. This includes `define()`, `trim(shell_exec(...))`, etc.
+- **NEVER use inline function calls** in string concatenation or arguments — always resolve to a variable first (e.g., `$bin_name_esc = escapeshellarg($bin_name);` then use `$bin_name_esc`)
+- **Use double-quoted strings** with variable interpolation instead of concatenation — `"which $bin_name_esc 2>/dev/null"` not `'which ' . $bin_name_esc . ' 2>/dev/null'`
+- **Use `_esc` suffix** for escaped variables — `$bin_name_esc`, `$file_esc`, etc.
 - **NEVER use closures/anonymous functions** — always use named methods
 - **NEVER modify source data** — don't use pass-by-reference (`&$param`). Return the modified copy instead
 - **HTML in PHP strings**: double quotes outside, single quotes inside with variable interpolation — `"<a href='$url_esc'>$label_esc</a>"` — always escape variables before interpolation into HTML
@@ -99,4 +102,10 @@ Before allowing a release, the tool checks:
 5. Git add, commit, pull, push release artifacts
 
 ### Archive Exclusions (file.php)
-Default exclusions in `App_Release_Manager_File::archive()`: `.git*`, `.svn*`, `.log*`, `.bak*`, `.zip*`, `screenshot*`, `.gitignore`, `.release_manager_ignore`, `.distignore`, `nbproject`, `project`, `.claude/*`, `.vscode/*`, `.idea/*`, `.ht_sandbox_data/*`, `mu-plugins/*`, `doc/*`, `docs/*`, `zzz_*/*`
+Default exclusions in `App_Release_Manager_File::archive()`: `.git*`, `.svn*`, `.log*`, `.bak*`, `.zip*`, `screenshot*`, `.gitignore`, `.release_manager_ignore`, `.distignore`, `nbproject`, `project`, `.claude/*`, `.vscode/*`, `.idea/*`, `.ht_sandbox_data/*`, `mu-plugins/*`, `doc/*`, `docs/*`, `zzz_*/*`, `zzz_project/*`
+
+### Binary Detection
+`App_Release_Manager_File::findBinary()` — finds custom binaries (`ogit`, `ozip`) with fallback:
+1. `which` first (respects user PATH, finds non-global installs)
+2. Check `/usr/local/bin/` and `/usr/bin/` as fallback
+3. Return default fallback if not found
