@@ -2,23 +2,50 @@
 
 require_once dirname(__FILE__) . '/config.php';
 
-$struct = array(
+$struct = [
     'status' => 1,
     'result' => '',
     'msg' => '',
-);
+];
 
 try {
     $cmd = empty($_REQUEST['cmd']) ? 'release_free_plugin' : $_REQUEST['cmd'];
-    $ver = empty($_REQUEST['new_ver']) ? '' : $_REQUEST['new_ver'];
+    $ver = empty($_REQUEST['new_ver']) ? '' : trim($_REQUEST['new_ver']);
+
+    if (!empty($ver) && !preg_match('#^\d+\.\d+(\.\d+)?$#', $ver)) {
+        throw new Exception("Invalid version format.");
+    }
     
     $plugin_dir = empty($_REQUEST['plugin_dir']) ? '' : $_REQUEST['plugin_dir'];
     $plugin_dir = strip_tags($plugin_dir);
     $plugin_dir = trim($plugin_dir);
-    $plugin_dir = str_replace('..', '', $plugin_dir);
+    $plugin_dir = realpath($plugin_dir);
 
-    if (!is_dir($plugin_dir)) {
+    if (empty($plugin_dir) || !is_dir($plugin_dir)) {
         throw new Exception("Plugin directory doesn't exist.");
+    }
+
+    // Validate plugin_dir is within one of the allowed scan dirs
+    $scan_dirs = preg_split('#[\|\r\n]+#si', trim(APP_SCAN_DIRS));
+    $scan_dirs = array_map('trim', $scan_dirs);
+    $scan_dirs = array_filter($scan_dirs);
+    $dir_allowed = false;
+
+    foreach ($scan_dirs as $scan_dir) {
+        $scan_dir = realpath($scan_dir);
+
+        if (empty($scan_dir)) {
+            continue;
+        }
+
+        if (strpos($plugin_dir, $scan_dir) === 0) {
+            $dir_allowed = true;
+            break;
+        }
+    }
+
+    if (!$dir_allowed) {
+        throw new Exception("Plugin directory is not within allowed scan directories.");
     }
 
     switch ($cmd) {
@@ -114,15 +141,15 @@ try {
                 throw new Exception("Couldn't create the zip file.");
             }
 
-            $update_rec = array(
+            $update_rec = [
                 "author" => "<a href='https://orbisius.com' target='_blank'>Orbisius.com</a>",
                 "author_profile" => "https://profiles.wordpress.org/lordspace/",
                 "downloaded" => 'n/a',
                 "homepage" => "https://orbisius.com/products/wordpress-plugins/{$wp_res['plugin_id']}/",
                 "requires" => "3.0",
                 "tested" => $wp_res['tested_with_wp_version'],
-                "url" => "https://orbisius.com/products/wordpress-plugins/{$wp_res['plugin_id']}/"
-            );
+                "url" => "https://orbisius.com/products/wordpress-plugins/{$wp_res['plugin_id']}/",
+            ];
 
 	        $cur_dir = getcwd(); // get it so we can go back jic
 	        $exit_code = 0;
@@ -132,7 +159,8 @@ try {
 	        $files = []; // to be committed
 
             $upd_file = $wp_res['target_release_dir'] . '/update.json';
-            $save_res = file_put_contents( $upd_file, json_encode( $update_rec, JSON_PRETTY_PRINT ), LOCK_EX );
+            $update_json = json_encode( $update_rec, JSON_PRETTY_PRINT );
+            $save_res = file_put_contents( $upd_file, $update_json, LOCK_EX );
 
             if (empty($save_res)) {
                 throw new Exception("Couldn't save the update.json file in release dir.");
@@ -321,6 +349,7 @@ try {
             break;
 
         default:
+            throw new Exception("Unknown command.");
             break;
     }
 } catch (Exception $e) {
