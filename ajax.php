@@ -9,7 +9,7 @@ $struct = [
 ];
 
 try {
-    $cmd = empty($_REQUEST['cmd']) ? 'release_free_plugin' : $_REQUEST['cmd'];
+    $cmd = empty($_REQUEST['cmd']) ? 'release_free_plugin' : strip_tags($_REQUEST['cmd']);
     $ver = empty($_REQUEST['new_ver']) ? '' : trim($_REQUEST['new_ver']);
 
     if (!empty($ver) && !preg_match('#^\d+\.\d+(\.\d+)?$#', $ver)) {
@@ -174,10 +174,10 @@ try {
 
             $struct['result'] .= "<pre>";
 
-	        $rel_dir_linux = $wp_res['target_release_dir'];
-	        $struct['result'] .= "\nRelease dir (linux): <input type='text' value='$rel_dir_linux' class='full_width' readonly='readonly' onclick='this.select();' />\n";
-	        $rel_dir_win = $wp_res['target_release_dir_windows'];
-	        $struct['result'] .= "\nRelease dir (win): <input type='text' value='$rel_dir_win' class='full_width' readonly='readonly' onclick='this.select();' />\n";
+	        $rel_dir_linux_esc = htmlentities($wp_res['target_release_dir']);
+	        $struct['result'] .= "\nRelease dir (linux): <input type='text' value='$rel_dir_linux_esc' class='full_width' readonly='readonly' onclick='this.select();' />\n";
+	        $rel_dir_win_esc = htmlentities($wp_res['target_release_dir_windows']);
+	        $struct['result'] .= "\nRelease dir (win): <input type='text' value='$rel_dir_win_esc' class='full_width' readonly='readonly' onclick='this.select();' />\n";
 
 	        $struct['result'] .= var_export($wp_res, 1);
 //            $struct['result'] .= var_export($zip_res, 1);
@@ -299,14 +299,17 @@ try {
             $trunk_url = empty( $data['URL'] ) ? '' : $data['URL'];
             
             if ( empty( $trunk_url ) ) {
-                throw new Exception("Cannot detect trunk URL for $plugin_dir. [$info]");
+                $plugin_dir_esc = htmlentities($plugin_dir);
+                $info_esc = htmlentities($info);
+                throw new Exception("Cannot detect trunk URL for $plugin_dir_esc. [$info_esc]");
             }
             
             $trunk_url = rtrim($trunk_url, '/') . '/';
             $tags_url = str_replace('trunk', 'tags', $trunk_url);
             $new_tag_url = $tags_url . $ver;
 
-            $struct['result'] .= $plugin_dir;
+            $plugin_dir_esc = htmlentities($plugin_dir);
+            $struct['result'] .= $plugin_dir_esc;
             $struct['result'] .= "<pre>";
             $struct['result'] .= "trunk_url : $trunk_url\n";
             $struct['result'] .= "new_tag_url : $new_tag_url\n";
@@ -324,8 +327,10 @@ try {
             //$run_cmd = $cmd_tag;
             $run_cmd = `$cmd_tag`; // svn commit is slow sometimes (or most of the time).
 
-            $struct['result'] .= "cmd: [$cmd_tag]";
-            $struct['result'] .= $run_cmd;
+            $cmd_tag_esc = htmlentities($cmd_tag);
+            $struct['result'] .= "cmd: [$cmd_tag_esc]";
+            $run_cmd_esc = htmlentities($run_cmd);
+            $struct['result'] .= $run_cmd_esc;
 
             if (!preg_match('#Committed revision\s+\d+#si', $run_cmd)) {
                 throw new Exception("Commit failed. Cmd output: " . $run_cmd);
