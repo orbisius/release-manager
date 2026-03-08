@@ -5,6 +5,39 @@ class App_Release_Manager_File {
     chdir($cur_dir);*/
 
     /**
+     * Finds a binary by name. Checks known paths first (cheap), then falls back to `which`.
+     *
+     * App_Release_Manager_File::findBinary();
+     * @param string $bin_name
+     * @param string $fallback
+     * @return string
+     */
+    public static function findBinary($bin_name, $fallback = '') {
+        // Try which first (respects user PATH, finds non-global installs)
+        $bin_name_esc = escapeshellarg($bin_name);
+        $file = shell_exec("which $bin_name_esc 2>/dev/null");
+        $file = empty($file) ? '' : trim($file);
+
+        if (!empty($file)) {
+            return $file;
+        }
+
+        // Check common locations as fallback
+        $files = array(
+            '/usr/local/bin/' . $bin_name,
+            '/usr/bin/' . $bin_name,
+        );
+
+        foreach ($files as $file) {
+            if (@is_file($file)) {
+                return $file;
+            }
+        }
+
+        return $fallback;
+    }
+
+    /**
      * Creates the zip file which contains the fresh site folder (without htdocs or wordpress folder).
      * The default latest.zip file contains wordpress in it.
      * @todo read the release_manager_ignore file and skip files and dirs.

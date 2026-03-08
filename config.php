@@ -20,11 +20,13 @@ if (empty($home_dir) && function_exists('posix_getpwnam')) {
 
 define( 'APP_BASE_DIR', dirname( __FILE__ ) );
 
-define( 'APP_GIT_BIN', @is_file('/usr/local/bin/ogit') ? '/usr/local/bin/ogit' : '/usr/bin/git');
-$_app_ozip_bin = shell_exec('which ozip 2>/dev/null');
-$_app_ozip_bin = trim($_app_ozip_bin);
-$_app_ozip_bin = empty($_app_ozip_bin) ? '' : trim($_app_ozip_bin);
-define( 'APP_ZIP_BIN', empty($_app_ozip_bin) ? 'zip' : $_app_ozip_bin);
+require_once dirname( __FILE__ ) . '/includes/file.php';
+
+$git_bin = App_Release_Manager_File::findBinary('ogit', '/usr/bin/git');
+define( 'APP_GIT_BIN', $git_bin);
+
+$zip_bin = App_Release_Manager_File::findBinary('ozip', 'zip');
+define( 'APP_ZIP_BIN', $zip_bin);
 
 define( 'APP_SVN_BIN', 'svn');
 
@@ -48,7 +50,6 @@ if ( ! defined( 'APP_SCAN_DIRS' ) ) {
     define( 'APP_SCAN_DIRS', dirname(dirname(__DIR__) ) );
 }
 
-require_once dirname( __FILE__ ) . '/includes/file.php';
 require_once dirname( __FILE__ ) . '/includes/wp_lib.php';
 require_once dirname( __FILE__ ) . '/includes/string.php';
 require_once dirname( __FILE__ ) . '/includes/ajax.php';
