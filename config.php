@@ -62,7 +62,7 @@ require_once dirname( __FILE__ ) . '/includes/release.php';
  * @return string e.g. 3.5.1
  */
 function rel_mng_get_latest_wp_version() {
-    $url = 'http://wordpress.org/download/';
+    $url = 'https://wordpress.org/download/';
     $ver = '6.5.1';
     $ver_file = APP_BASE_DIR . '/data/latest_wp_ver.txt';
 
