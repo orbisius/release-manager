@@ -224,7 +224,9 @@ class App_Release_Manager_File {
         $defaults = [
             'Plugin Name' => '',
             'Version' => '',
+            'Requires at least' => '',
             'Tested up to' => '',
+            'Requires PHP' => '',
             'Stable tag' => '',
         ];
 
