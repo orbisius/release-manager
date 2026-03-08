@@ -10,17 +10,17 @@ class App_Release_Manager_String {
         switch ($status) {
             case 0:
                 $cls = 'warn';
-                $prefix = '<span class="glyphicon glyphicon-remove"></span>';
+                $prefix = '<i class="bi bi-x-circle-fill"></i>';
                 break;
 
             case 1:
                 $cls = 'ok';
-                $prefix = '<span class="glyphicon glyphicon-ok"></span>';
+                $prefix = '<i class="bi bi-check-circle-fill"></i>';
                 break;
 
             default:
                 $cls = 'notice';
-                $prefix = '<span class="glyphicon glyphicon-exclamation-sign"></span>';
+                $prefix = '<i class="bi bi-exclamation-circle-fill"></i>';
                 break;
         }
 

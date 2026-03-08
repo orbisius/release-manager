@@ -2,45 +2,40 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Release Manager</title>
 
-    <!-- Bootstrap -->
-    <link href="share/bootstrap-3.3.1-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
     <link href="assets/main.css" rel="stylesheet" />
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-      <script src="share/js/jquery-2.1.1.min.js"></script>
-      <script src="assets/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="assets/main.js"></script>
   </head>
   <body>
 
-    <div class="container">
-      <div class="header">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="#">Home</a></li>
-            <li role="presentation"><a href="//orbisius.com/about">About</a></li>
-            <li role="presentation"><a href="//orbisius.com/contact">Contact</a></li>
-          </ul>
-        </nav>
-        <h3 class="text-muted">Release Manager</h3>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <i class="bi bi-rocket-takeoff"></i> Release Manager
+        </a>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="//orbisius.com/about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="//orbisius.com/contact">Contact</a></li>
+        </ul>
       </div>
+    </nav>
 
-      <div class="row marketing">
-        <div class="col-lg-8">
-		
+    <div class="container">
+
+      <div class="row">
+        <div class="col-lg-12">
+
 			<?php
-				echo '<input class="full_width" type="text" value="' . dirname(__FILE__) .'" onclick="this.select();" />' . APP_NL;
+				$base_dir_esc = htmlentities(dirname(__FILE__));
+				echo "<input class='full_width form-control form-control-sm bg-light' type='text' value='$base_dir_esc' onclick='this.select();' readonly />" . APP_NL;
 			?>
-          
+

@@ -81,7 +81,7 @@ foreach ($plugin_dirs as $plugin_dir) {
     }
 
     $plugin_dir_esc = htmlentities($plugin_dir);
-    echo "<h4>Processing: [$plugin_dir_esc]</h4>";
+    echo "<div class='orbisius-release-manager-scan-dir-heading'>Processing: [$plugin_dir_esc]</div>";
 
     foreach ($plugins_cache as $plugin_cached) {
         $ok = 0;
@@ -105,6 +105,7 @@ foreach ($plugin_dirs as $plugin_dir) {
         echo "<div class='plugin_container'>\n";
 
         $ver = $data['Version'];
+        $ver_esc = htmlentities($ver);
 
         foreach ($data as $k => $v) {
             if (is_array($v)) {
@@ -270,13 +271,14 @@ foreach ($plugin_dirs as $plugin_dir) {
             $warn = '';
 
             if ( ! empty( $wp_res['target_release_file'] ) && file_exists( $wp_res['target_release_file'] ) ) {
-                $warn = App_Release_Manager_String::msg( "(release v{$wp_res['version']} exists)", 0 );
+                $wp_res_ver_esc = htmlentities($wp_res['version']);
+                $warn = App_Release_Manager_String::msg( "(release v$wp_res_ver_esc exists)", 0 );
             }
 
-            echo "<button class='push_pro_release' data-id='$id' data-new_ver='{$ver}'"
+            echo "<button class='push_pro_release' data-id='$id' data-new_ver='$ver_esc'"
                 . " data-plugin_full_dir='$plugin_full_dir_enc'>Package Pro Release</button> $warn" . APP_NL;
         } elseif ($ok >= 4) {
-            echo "<button class='push_release' data-id='$id' data-new_ver='{$ver}'"
+            echo "<button class='push_release' data-id='$id' data-new_ver='$ver_esc'"
                 . " data-plugin_full_dir='$plugin_full_dir_enc'>Push Release</button>" . APP_NL;
         }
 

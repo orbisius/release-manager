@@ -1,30 +1,88 @@
 
+.orbisius-release-manager-ok,
 .ok {
-    color:green;
+    color: #198754;
 }
 
+.orbisius-release-manager-warn,
 .warn {
-    color:red;
+    color: #dc3545;
 }
 
+.orbisius-release-manager-notice,
 .notice {
-    color:#bebebe;
+    color: #6c757d;
 }
 
+.orbisius-release-manager-plugin-container,
 .plugin_container {
-    margin:15px 0;
-    border:2px solid brown;
-    padding: 5px;
+    margin: 12px 0;
+    border: 1px solid #dee2e6;
+    border-left: 4px solid #0d6efd;
+    border-radius: 4px;
+    padding: 12px 16px;
+    background: #fff;
 }
 
+.orbisius-release-manager-release-container,
 .release_container {
-    background: #ccc;
+    background: #f8f9fa;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-top: 8px;
 }
 
+.orbisius-release-manager-full-width,
 .full_width {
-	width: 100%;
+    width: 100%;
 }
 
+.orbisius-release-manager-pro-plugin-container,
 .pro_plugin_container {
-    background:#52ACCC;color: white;
+    background: #0dcaf0;
+    color: white;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+.orbisius-release-manager-push-release,
+.push_release,
+.orbisius-release-manager-push-pro-release,
+.push_pro_release {
+    padding: 6px 16px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.orbisius-release-manager-push-release,
+.push_release {
+    background: #198754;
+}
+
+.orbisius-release-manager-push-release:hover,
+.push_release:hover {
+    background: #157347;
+}
+
+.orbisius-release-manager-push-pro-release,
+.push_pro_release {
+    background: #0d6efd;
+}
+
+.orbisius-release-manager-push-pro-release:hover,
+.push_pro_release:hover {
+    background: #0b5ed7;
+}
+
+.orbisius-release-manager-scan-dir-heading {
+    background: #e9ecef;
+    padding: 8px 14px;
+    border-radius: 4px;
+    margin: 20px 0 10px 0;
+    font-weight: 600;
+    font-size: 1.1em;
+    border-left: 4px solid #6c757d;
 }
