@@ -152,6 +152,16 @@ foreach ($plugin_dirs as $plugin_dir) {
             $ok--;
         }
 
+        $req_wp = empty( $data['Requires at least'] ) ? '' : $data['Requires at least'];
+
+        if (!empty($req_wp)) {
+            echo App_Release_Manager_String::msg("Has Requires at least: $req_wp" . APP_NL, 1);
+            $ok++;
+        } else {
+            echo App_Release_Manager_String::msg("Missing Requires at least: " . APP_NL, 0);
+            $ok--;
+        }
+
         // Do we need to check WC tags?
         $wc_regex = '#-(woocommerce|wc-ext)-#si';
 
