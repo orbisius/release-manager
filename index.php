@@ -102,7 +102,15 @@ foreach ($plugin_dirs as $plugin_dir) {
         $manage_site_adm = "http://localhost/$manage_link_trimmed/wp-admin/";
         $manage_site_adm_esc = htmlentities($manage_site_adm);
 
-        echo "<div class='plugin_container'>\n";
+        $plugin_name = $data['Plugin Name'];
+        $plugin_name_esc = htmlentities($plugin_name);
+        $base_name_esc = htmlentities($base_name);
+        $plugin_uri = empty($data['Plugin URI']) ? '' : $data['Plugin URI'];
+        $plugin_uri_esc = htmlentities($plugin_uri);
+        $search_text = "$plugin_name $base_name $plugin_uri";
+        $search_text_esc = htmlentities(strtolower($search_text));
+
+        echo "<div class='plugin_container' data-search='$search_text_esc' data-plugin-name='$plugin_name_esc' data-plugin-slug='$base_name_esc' data-plugin-uri='$plugin_uri_esc'>\n";
 
         $ver = $data['Version'];
         $ver_esc = htmlentities($ver);
@@ -276,10 +284,10 @@ foreach ($plugin_dirs as $plugin_dir) {
             }
 
             echo "<button class='push_pro_release' data-id='$id' data-new_ver='$ver_esc'"
-                . " data-plugin_full_dir='$plugin_full_dir_enc'>Package Pro Release</button> $warn" . APP_NL;
+                . " data-plugin_full_dir='$plugin_full_dir_enc'><i class='bi bi-box-seam'></i> Package Pro Release</button> $warn" . APP_NL;
         } elseif ($ok >= 4) {
             echo "<button class='push_release' data-id='$id' data-new_ver='$ver_esc'"
-                . " data-plugin_full_dir='$plugin_full_dir_enc'>Push Release</button>" . APP_NL;
+                . " data-plugin_full_dir='$plugin_full_dir_enc'><i class='bi bi-rocket-takeoff'></i> Push Release</button>" . APP_NL;
         }
 
         echo "</div>\n";
@@ -289,7 +297,7 @@ foreach ($plugin_dirs as $plugin_dir) {
         echo "</div>\n";
     }
 
-    echo "<hr />" . APP_NL;
+    echo "<hr class='orbisius-release-manager-scan-dir-separator' />" . APP_NL;
 }
 
 ?>
