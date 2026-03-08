@@ -31,7 +31,7 @@ class App_Release_Manager_WP_Lib {
      * @param string $file
      */
     static public function parse( $main_plugin_file ) {
-        $rec = array();
+        $rec = [];
 
         $pro_target_release_root_dir = App_Release_Manager_WP_Lib::findProReleaseDir();
 
@@ -46,7 +46,7 @@ class App_Release_Manager_WP_Lib {
         $ver = '0.0.0';
 
         if ( empty( $main_plugin_file ) || ! file_exists( $main_plugin_file ) ) {
-            return array();
+            return [];
         }
         
         $plugin_buff = file_get_contents($main_plugin_file);
