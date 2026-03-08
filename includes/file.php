@@ -13,6 +13,13 @@ class App_Release_Manager_File {
      * @return string
      */
     public static function findBinary($bin_name, $fallback = '') {
+        // Only allow simple binary names (alphanumeric, dash, underscore)
+        $bin_name = preg_replace('#[^\w\d\-]#si', '', $bin_name);
+
+        if (empty($bin_name)) {
+            return $fallback;
+        }
+
         // Try which first (respects user PATH, finds non-global installs)
         $bin_name_esc = escapeshellarg($bin_name);
         $file = shell_exec("which $bin_name_esc 2>/dev/null");
@@ -23,10 +30,10 @@ class App_Release_Manager_File {
         }
 
         // Check common locations as fallback
-        $files = array(
+        $files = [
             '/usr/local/bin/' . $bin_name,
             '/usr/bin/' . $bin_name,
-        );
+        ];
 
         foreach ($files as $file) {
             if (@is_file($file)) {
@@ -55,7 +62,7 @@ class App_Release_Manager_File {
         $binary = APP_ZIP_BIN;
 
         // exclude some files and especially our mu plugin so people don't see how to get access to the system.
-        $options_extra = array(
+        $options_extra = [
             '-x ' . escapeshellarg('*.git*'),
             '-x ' . escapeshellarg('*.svn*'),
             '-x ' . escapeshellarg('*.log*'),
@@ -76,7 +83,7 @@ class App_Release_Manager_File {
             '-x ' . escapeshellarg('*/docs/*'),
             '-x ' . escapeshellarg('*/zzz_*/*'),
             '-x ' . escapeshellarg('*/zzz_project/*'),
-        );
+        ];
 
 		if (!empty($extra_params['exclude'])) {
 			$exclude = (array) $extra_params['exclude'];
@@ -100,7 +107,7 @@ class App_Release_Manager_File {
         $cmd = "$binary -r -9 $target_archive_file $folder2zip $options_extra_str 2>&1";
 
         //$result = `$cmd`; // it is faster to call OS funcs
-        $output_arr = array();
+        $output_arr = [];
         exec( $cmd, $output_arr, $result );
         chdir($current_dir);
 
@@ -173,7 +180,7 @@ class App_Release_Manager_File {
      * @return array
      */
     static public function parsePluginMeta($main_plugin_file, $buff = '') {
-        $data = array();
+        $data = [];
 
         if (empty($buff)) {
             $buff = self::readFilePartially($main_plugin_file, 1024);
@@ -214,12 +221,12 @@ class App_Release_Manager_File {
             $data[$key] = $val;
         }
 
-        $defaults = array(
+        $defaults = [
             'Plugin Name' => '',
             'Version' => '',
             'Tested up to' => '',
             'Stable tag' => '',
-        );
+        ];
 
         $data = array_merge($defaults, $data);
 

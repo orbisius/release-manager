@@ -9,6 +9,7 @@ class App_Release_Manager_Release {
 	 */
 	public static function initEnv() {
 		$host = empty($_SERVER['HTTP_HOST']) ? trim(`hostname`) : $_SERVER['HTTP_HOST'];
+		$host = preg_replace('#[^\w\d.\-]#si', '', $host);
 		$host = preg_replace('#^www\.#si', '', $host);
 		$host = strtolower($host);
 		$host = empty($host) ? 'localhost' : $host;
