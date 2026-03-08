@@ -59,14 +59,14 @@ class App_Release_Manager_WP_Lib {
         $target_release_file = "$target_release_dir/$plugin_id.zip";
 
         $change_log = '';
-        $stable_version = $tested_with_wp_version = '';
+        $stable_version = '';
+        $tested_with_wp_version = '';
 
         $plugin_dir = dirname( $main_plugin_file );
         $readme_file = $plugin_dir . '/readme.txt';
 
         if (is_file($readme_file)) {
             $readme_buff = file_get_contents($readme_file);
-            $ver_quoted = preg_quote($ver);
 
             if ( preg_match( '#Stable tag\s*:\s*([\d\.]+)#si', $readme_buff, $matches ) ) {
                 $stable_version = $matches[1];
@@ -91,9 +91,7 @@ class App_Release_Manager_WP_Lib {
         $rec['target_release_dir'] = $target_release_dir;
         $rec['target_release_file'] = $target_release_file;
 
-	    $rec['target_release_dir_windows'] = $target_release_dir;
-	    $rec['target_release_dir_windows'] = str_replace('/', '\\', $rec['target_release_dir_windows']);
-	    $rec['target_release_dir_windows'] = str_replace('\\', "\\", $rec['target_release_dir_windows']);
+	    $rec['target_release_dir_windows'] = str_replace('/', '\\', $target_release_dir);
 
         return $rec;
     }
