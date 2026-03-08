@@ -35,11 +35,10 @@ class App_Release_Manager_Release {
 	}
 
     /**
-     * Reads a file partially e.g. the first NN bytes.
+     * Gets the stored release version for a plugin.
      *
-     * @param string $file
-     * @param int $len_bytes how much bytes to read
-     * @param int $seek_bytes should we start from the start?
+     * App_Release_Manager_Release::getRelease();
+     * @param string $plugin_dir
      * @return string
      */
     static function getRelease($plugin_dir) {
