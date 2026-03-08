@@ -162,6 +162,18 @@ foreach ($plugin_dirs as $plugin_dir) {
             $ok--;
         }
 
+        $license = empty( $data['License'] ) ? '' : $data['License'];
+        $license_uri = empty( $data['License URI'] ) ? '' : $data['License URI'];
+
+        if (!empty($license) || !empty($license_uri)) {
+            $license_info = !empty($license) ? $license : $license_uri;
+            echo App_Release_Manager_String::msg("Has License: $license_info" . APP_NL, 1);
+            $ok++;
+        } else {
+            echo App_Release_Manager_String::msg("Missing License: " . APP_NL, 0);
+            $ok--;
+        }
+
         // Do we need to check WC tags?
         $wc_regex = '#-(woocommerce|wc-ext)-#si';
 

@@ -228,6 +228,8 @@ class App_Release_Manager_File {
             'Tested up to' => '',
             'Requires PHP' => '',
             'Stable tag' => '',
+            'License' => '',
+            'License URI' => '',
         ];
 
         $data = array_merge($defaults, $data);
