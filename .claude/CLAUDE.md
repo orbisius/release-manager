@@ -7,7 +7,7 @@ This is a guide for Claude instances working on the Release Manager tool, a web-
 ### Project Overview
 - **Tool Name**: Release Manager
 - **Purpose**: Web UI to scan plugin directories, validate release readiness, and push releases to WordPress.org (SVN) or package pro plugins (Git/Zip)
-- **Architecture**: Standalone PHP web app (no WordPress dependency) with Bootstrap 3 frontend and jQuery AJAX
+- **Architecture**: Standalone PHP web app (no WordPress dependency) with Bootstrap 5 frontend, Bootstrap Icons, and jQuery AJAX
 - **Entry Point**: `/index.php` (includes `header.php` -> `config.php` -> all includes)
 - **Environment**: Apache/PHP, uses `shell_exec`/`exec` for git/svn/zip CLI operations
 
@@ -15,7 +15,7 @@ This is a guide for Claude instances working on the Release Manager tool, a web-
 - `/config.php` - Bootstrap: constants, HOME env, includes all libs, loads custom config
 - `/index.php` - Main UI: scans plugin dirs, validates metadata, renders plugin cards
 - `/ajax.php` - AJAX handler: `release_free_plugin` (SVN tag) and `package_pro_plugin` (Git zip)
-- `/header.php` - HTML head with Bootstrap 3.3.1, jQuery, app assets
+- `/header.php` - HTML head with Bootstrap 5.3.3, Bootstrap Icons, jQuery 3.7.1, app assets
 - `/footer.php` - HTML footer
 - `/conf/config.custom.php` - User-specific config (SVN creds, scan dirs, pro release dir)
 - `/conf/sample.config.custom.php` - Sample custom config template
@@ -30,7 +30,7 @@ This is a guide for Claude instances working on the Release Manager tool, a web-
 ### Assets
 - `/assets/main.js` - jQuery click handlers for Push Release / Package Pro Release buttons
 - `/assets/main.css` - Status classes (.ok, .warn, .notice), plugin_container, release_container styles
-- `/share/` - Bootstrap 3.3.1 dist, jQuery 2.1.1
+- `/share/` - Legacy Bootstrap 3.3.1 dist, jQuery 2.1.1 (no longer used — CDN loads Bootstrap 5.3.3 and jQuery 3.7.1)
 
 ### Data
 - `/data/latest_wp_ver.txt` - Cached latest WP version (auto-refreshed every 4h)
@@ -67,6 +67,7 @@ This is a guide for Claude instances working on the Release Manager tool, a web-
 - Class naming: `App_Release_Manager_*` prefix for all classes
 - Function naming: `rel_mng_*` prefix for standalone functions
 - Constants: `APP_*` prefix
+- CSS class naming: `orbisius-release-manager-*` prefix (hyphenated)
 
 ### Security
 - **Always escape output** — use `htmlentities()` for HTML context
