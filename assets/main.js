@@ -27,6 +27,10 @@ jQuery(document).ready(function ($) {
     });
 
     // Live filter for plugin cards
+    let total_plugins = $('.plugin_container').length;
+    let count_el = $('#orbisius-release-manager-plugin-count-value');
+    count_el.text(total_plugins);
+
     filter_input.on('input search keyup change', function () {
         let query = $(this).val().toLowerCase().trim();
         clear_btn.toggle(query.length > 0);
@@ -35,6 +39,7 @@ jQuery(document).ready(function ($) {
             $('.plugin_container').show();
             $('.orbisius-release-manager-scan-dir-heading').show();
             $('.orbisius-release-manager-scan-dir-separator').show();
+            count_el.text(total_plugins);
             return;
         }
 
@@ -43,6 +48,9 @@ jQuery(document).ready(function ($) {
             let is_match = search_data.indexOf(query) !== -1;
             $(this).toggle(is_match);
         });
+
+        let visible_count = $('.plugin_container:visible').length;
+        count_el.text(visible_count + ' / ' + total_plugins);
 
         // Show/hide scan dir headings and separators based on whether they have visible plugins
         $('.orbisius-release-manager-scan-dir-heading').each(function () {

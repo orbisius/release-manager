@@ -44,4 +44,7 @@
 				$base_dir_esc = htmlentities(dirname(__FILE__));
 				echo "<input class='full_width form-control form-control-sm bg-light' type='text' value='$base_dir_esc' onclick='this.select();' readonly />" . APP_NL;
 			?>
+            <div id="orbisius-release-manager-plugin-count" class="orbisius-release-manager-plugin-count">
+                Plugins: <span id="orbisius-release-manager-plugin-count-value"></span>
+            </div>
 
