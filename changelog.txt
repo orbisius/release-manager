@@ -1,0 +1,35 @@
+= Changelog =
+
+== 1.1.0 (2026-03-09) ==
+* Feature: Live plugin filter in navbar — search by plugin name, slug, URL, and tags
+* Feature: Plugin count display (total and filtered) at top of page
+* Feature: Clear button (X icon) in search box with auto-focus
+* Feature: Bootstrap Icons on release buttons (rocket for Push, box for Package Pro)
+* Feature: Asset cache busting via filemtime() query params on CSS/JS
+* Upgrade: Bootstrap 3.3.1 to Bootstrap 5.3.3 (via CDN)
+* Upgrade: jQuery 2.1.1 to jQuery 3.7.1 (via CDN)
+* Upgrade: Glyphicons replaced with Bootstrap Icons
+* UI: Modern dark navbar with rocket icon branding
+* UI: Plugin cards with blue border on all sides
+* UI: Scan dir headings with bold styling and left border accent
+* UI: Reduced spacing and padding for tighter layout
+* Validation: Added "Requires at least" check
+* Validation: Added License / License URI check (either is sufficient)
+* Security: Path traversal prevention with realpath() + whitelist in ajax.php
+* Security: escapeshellarg() on all shell parameters
+* Security: htmlentities() on all HTML output with _esc suffix convention
+* Security: Version format validation in ajax.php
+* Security: Host header sanitization in release.php
+* Security: Removed CORS wildcard headers from ajax.php
+* Performance: Eliminated double plugin scanning loop — cache parsed data in first pass
+* Performance: SVN status check only runs for plugins with .svn directory
+* Performance: Optimized VCS detection — check .svn first, only check .git if needed
+* Refactor: Binary detection moved to App_Release_Manager_File::findBinary() (OOP)
+* Refactor: ozip binary detection added alongside ogit
+* Refactor: CSS prefix renamed from app_rel_mng_ to orbisius-release-manager-
+* Refactor: All array() converted to [] short syntax
+* Refactor: WP version fetch URL changed from HTTP to HTTPS
+* Fix: Removed unused sha1_file() call
+* Fix: Removed fragile version padding logic
+* Fix: Removed redundant no-op str_replace in wp_lib.php
+* Fix: Fixed wrong docblock on getRelease() in release.php
