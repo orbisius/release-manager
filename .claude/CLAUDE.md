@@ -98,7 +98,7 @@ Before allowing a release, the tool checks:
 3. Has `Requires at least` header
 4. Has `License` or `License URI` header
 5. WC headers present (for WooCommerce plugins)
-6. Tested with latest WP version
+6. Tested with latest WP version (2-part versions like `6.9` padded to `6.9.99` for comparison)
 7. Changelog entry exists for current version
 8. No uncommitted SVN changes
 9. Not already released at this version

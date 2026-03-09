@@ -32,6 +32,6 @@
 * Refactor: All array() converted to [] short syntax
 * Refactor: WP version fetch URL changed from HTTP to HTTPS
 * Fix: Removed unused sha1_file() call
-* Fix: Removed fragile version padding logic
+* Fix: Version padding — "Tested up to: 6.9" pads to 6.9.99 so it passes against 6.9.1 etc.
 * Fix: Removed redundant no-op str_replace in wp_lib.php
 * Fix: Fixed wrong docblock on getRelease() in release.php
