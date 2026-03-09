@@ -23,13 +23,13 @@ This is a guide for Claude instances working on the Release Manager tool, a web-
 ### Include Classes
 - `/includes/file.php` - `App_Release_Manager_File` — findBinary, archive (zip), readFilePartially, findMainPluginFile, parsePluginMeta
 - `/includes/release.php` - `App_Release_Manager_Release` — getRelease/setRelease (version tracking via `zzz_release.txt`), initEnv (git env vars)
-- `/includes/string.php` - `App_Release_Manager_String` — msg() for status messages (ok/warn/notice with glyphicons)
+- `/includes/string.php` - `App_Release_Manager_String` — msg() for status messages (ok/warn/notice with Bootstrap Icons)
 - `/includes/wp_lib.php` - `App_Release_Manager_WP_Lib` — parse() for pro plugin metadata, findProReleaseDir()
 - `/includes/ajax.php` - `App_Release_Manager_Ajax` — isAjax(), sendJSON() with JSONP support
 
 ### Assets
-- `/assets/main.js` - jQuery click handlers for Push Release / Package Pro Release buttons
-- `/assets/main.css` - Status classes (.ok, .warn, .notice), plugin_container, release_container styles
+- `/assets/main.js` - jQuery: live plugin filter (by name, slug, URL, tags), clear button, click handlers for Push Release / Package Pro Release buttons
+- `/assets/main.css` - Status classes, plugin cards, filter styles — all prefixed `orbisius-release-manager-*` with legacy aliases
 - `/share/` - Legacy Bootstrap 3.3.1 dist, jQuery 2.1.1 (no longer used — CDN loads Bootstrap 5.3.3 and jQuery 3.7.1)
 
 ### Data
@@ -79,17 +79,29 @@ This is a guide for Claude instances working on the Release Manager tool, a web-
 - **Don't process what you don't need** — skip early with `continue`/`unset`
 - **Cache expensive operations** — e.g., WP version cached to file with 4h TTL
 
+## Features
+- **Live plugin filter** — search box in navbar filters plugin cards as you type by name, slug, URL, and tags
+- **Plugin count** — shows total plugins and filtered count (e.g. "3 / 25")
+- **Clear button** — X icon in search box to clear filter and refocus
+- **Validation checks** — Stable tag, Requires PHP, Requires at least, License/License URI, WC headers, WP tested version, changelog entry, SVN status
+- **Binary detection** — `findBinary()` finds `ogit`/`ozip` via `which` first, hardcoded paths as fallback
+- **Security** — path traversal prevention (`realpath` + whitelist), `escapeshellarg()`, `htmlentities()` on all output
+- **Asset cache busting** — `filemtime()` appended as `?v=` query param on CSS/JS includes
+- **Bootstrap 5 UI** — dark navbar, Bootstrap Icons, modern card layout with blue borders
+
 ## Key Patterns & Conventions
 
 ### Plugin Validation Checklist (index.php)
 Before allowing a release, the tool checks:
 1. Stable tag matches plugin version
 2. Has `Requires PHP` header
-3. WC headers present (for WooCommerce plugins)
-4. Tested with latest WP version
-5. Changelog entry exists for current version
-6. No uncommitted SVN changes
-7. Not already released at this version
+3. Has `Requires at least` header
+4. Has `License` or `License URI` header
+5. WC headers present (for WooCommerce plugins)
+6. Tested with latest WP version
+7. Changelog entry exists for current version
+8. No uncommitted SVN changes
+9. Not already released at this version
 
 ### Release Flow - Free Plugin (SVN)
 1. `svn cp trunk/ tags/{version}/` on WordPress.org
