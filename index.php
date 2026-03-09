@@ -107,7 +107,8 @@ foreach ($plugin_dirs as $plugin_dir) {
         $base_name_esc = htmlentities($base_name);
         $plugin_uri = empty($data['Plugin URI']) ? '' : $data['Plugin URI'];
         $plugin_uri_esc = htmlentities($plugin_uri);
-        $search_text = "$plugin_name $base_name $plugin_uri";
+        $plugin_tags = empty($data['Tags']) ? '' : $data['Tags'];
+        $search_text = "$plugin_name $base_name $plugin_uri $plugin_tags";
         $search_text_esc = htmlentities(strtolower($search_text));
 
         echo "<div class='plugin_container' data-search='$search_text_esc' data-plugin-name='$plugin_name_esc' data-plugin-slug='$base_name_esc' data-plugin-uri='$plugin_uri_esc'>\n";
