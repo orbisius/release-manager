@@ -216,7 +216,13 @@ foreach ($plugin_dirs as $plugin_dir) {
 
         $tested_ver = empty( $data['Tested up to'] ) ? '0.0.0' : $data['Tested up to'];
 
-        if (version_compare($tested_ver, APP_LATEST_WP, '>=')) {
+        // Pad 2-part version with .99 so "6.9" means "tested with all 6.9.x"
+        $tested_ver_parts = explode('.', $tested_ver);
+        $tested_ver_cmp = count($tested_ver_parts) == 2
+            ? $tested_ver_parts[0] . '.' . $tested_ver_parts[1] . '.99'
+            : $tested_ver;
+
+        if (version_compare($tested_ver_cmp, APP_LATEST_WP, '>=')) {
             echo App_Release_Manager_String::msg("The plugin is tested with the latest WP version: " . APP_LATEST_WP . APP_NL, 1);
             $ok++;
         } else {

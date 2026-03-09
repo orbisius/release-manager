@@ -22,7 +22,7 @@ This is a guide for Claude instances working on the Release Manager tool, a web-
 
 ### Include Classes
 - `/includes/file.php` - `App_Release_Manager_File` — findBinary, archive (zip), readFilePartially, findMainPluginFile, parsePluginMeta
-- `/includes/release.php` - `App_Release_Manager_Release` — getRelease/setRelease (version tracking via `zzz_release.txt`), initEnv (git env vars)
+- `/includes/release.php` - `App_Release_Manager_Release` — getRelease/setRelease (version tracking via `.orbisius-release-manager/released_ver.txt`, fallback to legacy `zzz_release.txt`), initEnv (git env vars)
 - `/includes/string.php` - `App_Release_Manager_String` — msg() for status messages (ok/warn/notice with Bootstrap Icons)
 - `/includes/wp_lib.php` - `App_Release_Manager_WP_Lib` — parse() for pro plugin metadata, findProReleaseDir()
 - `/includes/ajax.php` - `App_Release_Manager_Ajax` — isAjax(), sendJSON() with JSONP support
@@ -105,7 +105,7 @@ Before allowing a release, the tool checks:
 
 ### Release Flow - Free Plugin (SVN)
 1. `svn cp trunk/ tags/{version}/` on WordPress.org
-2. Version recorded in `zzz_release.txt`
+2. Version recorded in `.orbisius-release-manager/released_ver.txt`
 
 ### Release Flow - Pro Plugin (Git)
 1. Read `.gitignore`, `.release_manager_ignore`, `.distignore` for exclusions
@@ -115,7 +115,7 @@ Before allowing a release, the tool checks:
 5. Git add, commit, pull, push release artifacts
 
 ### Archive Exclusions (file.php)
-Default exclusions in `App_Release_Manager_File::archive()`: `.git*`, `.svn*`, `.log*`, `.bak*`, `.zip*`, `screenshot*`, `.gitignore`, `.release_manager_ignore`, `.distignore`, `nbproject`, `project`, `.claude/*`, `.vscode/*`, `.idea/*`, `.ht_sandbox_data/*`, `mu-plugins/*`, `doc/*`, `docs/*`, `zzz_*/*`, `zzz_project/*`
+Default exclusions in `App_Release_Manager_File::archive()`: `.git*`, `.svn*`, `.log*`, `.bak*`, `.zip*`, `screenshot*`, `.gitignore`, `.release_manager_ignore`, `.distignore`, `nbproject`, `project`, `.orbisius-release-manager/*`, `.claude/*`, `.vscode/*`, `.idea/*`, `.ht_sandbox_data/*`, `mu-plugins/*`, `doc/*`, `docs/*`, `zzz_*/*`, `zzz_project/*`
 
 ### Binary Detection
 `App_Release_Manager_File::findBinary()` — finds custom binaries (`ogit`, `ozip`) with fallback:

@@ -1,7 +1,9 @@
 <?php
 
 class App_Release_Manager_Release {
-    private static $file = 'zzz_release.txt';
+    private static $dir = '.orbisius-release-manager';
+    private static $file = 'released_ver.txt';
+    private static $legacy_file = 'zzz_release.txt';
 
 	/**
 	 * App_Release_Manager_Release::initEnv();
@@ -43,10 +45,19 @@ class App_Release_Manager_Release {
      */
     static function getRelease($plugin_dir) {
         $buff = '';
-        $release_file = $plugin_dir . '/' . self::$file;
+        $release_file = $plugin_dir . '/' . self::$dir . '/' . self::$file;
 
         if (is_file($release_file)) {
             $buff = file_get_contents($release_file);
+            $buff = trim($buff);
+            return $buff;
+        }
+
+        // Fallback: check legacy file location
+        $legacy_file = $plugin_dir . '/' . self::$legacy_file;
+
+        if (is_file($legacy_file)) {
+            $buff = file_get_contents($legacy_file);
             $buff = trim($buff);
         }
 
@@ -54,8 +65,14 @@ class App_Release_Manager_Release {
     }
 
     static function setRelease($plugin_dir, $ver) {
-        $release_file = $plugin_dir . '/' . self::$file;
-        
+        $release_dir = $plugin_dir . '/' . self::$dir;
+
+        if (!is_dir($release_dir)) {
+            mkdir($release_dir, 0755);
+        }
+
+        $release_file = $release_dir . '/' . self::$file;
+
         // let's mark the plugin as updated to that version.
         return file_put_contents($release_file, $ver);
     }

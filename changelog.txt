@@ -26,6 +26,8 @@
 * Performance: Optimized VCS detection — check .svn first, only check .git if needed
 * Refactor: Binary detection moved to App_Release_Manager_File::findBinary() (OOP)
 * Refactor: ozip binary detection added alongside ogit
+* Refactor: Release version tracking moved from zzz_release.txt to .orbisius-release-manager/released_ver.txt (with legacy fallback)
+* Refactor: .orbisius-release-manager/* added to archive exclusions
 * Refactor: CSS prefix renamed from app_rel_mng_ to orbisius-release-manager-
 * Refactor: All array() converted to [] short syntax
 * Refactor: WP version fetch URL changed from HTTP to HTTPS

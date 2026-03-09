@@ -74,6 +74,7 @@ class App_Release_Manager_File {
             '-x ' . escapeshellarg('*.distignore*'),
             '-x ' . escapeshellarg('*nbproject*'),
             '-x ' . escapeshellarg('*project*'),
+            '-x ' . escapeshellarg('*.orbisius-release-manager/*'),
             '-x ' . escapeshellarg('*.claude/*'),
             '-x ' . escapeshellarg('*.vscode/*'),
             '-x ' . escapeshellarg('*.idea/*'),
