@@ -174,10 +174,14 @@ try {
 
             $struct['result'] .= "<pre>";
 
-	        $rel_dir_linux_esc = htmlentities($wp_res['target_release_dir']);
-	        $struct['result'] .= "\nRelease dir (linux): <input type='text' value='$rel_dir_linux_esc' class='full_width' readonly='readonly' onclick='this.select();' />\n";
-	        $rel_dir_win_esc = htmlentities($wp_res['target_release_dir_windows']);
-	        $struct['result'] .= "\nRelease dir (win): <input type='text' value='$rel_dir_win_esc' class='full_width' readonly='readonly' onclick='this.select();' />\n";
+	        $rel_dir = $wp_res['target_release_dir'];
+
+	        if (APP_IS_WINDOWS) {
+	            $rel_dir = str_replace('/', '\\', $rel_dir);
+	        }
+
+	        $rel_dir_esc = htmlentities($rel_dir);
+	        $struct['result'] .= "\nRelease dir: <input type='text' value='$rel_dir_esc' class='full_width' readonly='readonly' onclick='this.select();' />\n";
 
 	        $struct['result'] .= var_export($wp_res, 1);
 //            $struct['result'] .= var_export($zip_res, 1);
