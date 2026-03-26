@@ -30,6 +30,7 @@ define( 'APP_ZIP_BIN', $zip_bin);
 
 define( 'APP_SVN_BIN', 'svn');
 
+define( 'APP_IS_WINDOWS', strtoupper(substr(PHP_OS, 0, 3)) == 'WIN' );
 define( 'APP_NL', "<br/>\n" );
 define( 'APP_LIVE_ENV', empty($_SERVER['DEV_ENV']) );
 define( 'APP_LATEST_WP', rel_mng_get_latest_wp_version() );// load it dyn
